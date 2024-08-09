@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:4000",
+        target: "https://foodeli-backend-55b2.onrender.com",
         secure: false,
       },
     },

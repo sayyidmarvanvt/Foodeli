@@ -1,0 +1,89 @@
+@import "../../index.scss";
+
+.app-download {
+  background-color: #ffddcc;
+  padding: 40px 50px 0;
+  margin: 30px auto 0;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 30px;
+  align-items: center;
+  border-radius: 30px;
+  @include mobile {
+    padding: 12px 5px;
+    gap: 10px;
+    flex-direction: column-reverse;
+    margin: 10px auto 0;
+  }
+
+  .download-img {
+    max-width: 50%;
+
+    @include mobile{
+      max-width: 60%;
+    }
+  }
+  .app-download-content {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1.5vw;
+    max-width: 50%;
+    animation: fadeIn 3s;
+
+    @include mobile{
+      max-width: 80%;
+    }
+
+    h2 {
+      font-weight: 500;
+      color: #eb0029;
+      font-size: 1.5vw;
+
+      @include mobile {
+        font-size: 10px;
+      }
+    }
+    h1 {
+      font-weight: bold;
+      font-size: 2.5vw;
+
+      @include mobile {
+        font-size: 15px;
+      }
+    }
+    p {
+      font-size: 1.4vw;
+      max-width: 80%;
+
+      @include mobile {
+        font-size: 8px;
+        // display: none;
+      }
+    }
+    button {
+      border: none;
+      color: white;
+      padding: 1vw 2.3vw;
+      background-color: #eb0029;
+      font-size: max(1vw, 13px);
+      border-radius: 50px;
+      font-size: max(1.4vw, 14px);
+
+      @include tablet {
+        padding: 7px 20px;
+        font-size: 12px;
+      }
+      @include mobile {
+        padding: 5px 10px;
+        font-size: 8px;
+      }
+
+      &:hover {
+        background-color: #ffffff;
+        color: #eb0029;
+        outline: 1px solid #eb0029;
+      }
+    }
+  }
+}

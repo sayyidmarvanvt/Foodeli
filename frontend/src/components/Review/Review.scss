@@ -1,0 +1,95 @@
+@import "../../index.scss";
+
+.review {
+  
+  margin: 40px auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @include mobile {
+    margin: 20px auto;
+    flex-direction: column-reverse;
+  }
+
+  .review-img {
+    max-width: 50%;
+    height: 100%;
+    @include mobile{
+      max-width: 80%;
+    }
+  }
+  .review-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vw;
+    max-width: 50%;
+    animation: fadeIn 3s;
+
+    @include mobile{
+      max-width: 80%;
+    }
+
+    h2 {
+      font-weight: 500;
+      color: #eb0029;
+      font-size: 1.5vw;
+
+      @include mobile {
+        font-size: 10px;
+      }
+    }
+    h1 {
+      font-weight: bold;
+      font-size: 2.5vw;
+
+      @include mobile {
+        font-size: 15px;
+      }
+    }
+    p {
+      font-size: 1.4vw;
+      max-width: 80%;
+
+      @include mobile {
+        // display: none;
+        font-size: 8px;
+      }
+    }
+
+    .review-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 50%;
+      margin-top: 10px;
+      @include mobile {
+        display: none;
+        gap: 5px;
+      }
+
+      img {
+        width: 6vw;
+      }
+
+      .review-details {
+        h6 {
+          font-size: 1vw;
+        }
+        p {
+          display: block;
+          font-size: 0.7vw;
+          letter-spacing: 0.5px;
+          color: #828282;
+
+          @include mobile {
+            font-size: 2px;
+          }
+        }
+        img {
+          width: 4vw;
+        }
+      }
+    }
+  }
+}

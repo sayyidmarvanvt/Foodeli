@@ -1,0 +1,78 @@
+@import "../../index.scss";
+
+.services {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  .services-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    @include mobile {
+      max-width: 80%;
+    }
+    h1 {
+      color: #eb0029;
+      font-size: 1.5vw;
+      font-weight: 500;
+
+      @include mobile {
+        font-size: 10px;
+      }
+    }
+    p {
+      color: black;
+      text-align: center;
+      font-size: 2.5vw;
+      font-weight: 600;
+
+      @include mobile {
+        font-size: 15px;
+      }
+    }
+  }
+
+  .service-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+
+    @include mobile {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .service {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      img {
+        max-width: 100%;
+
+        @include mobile {
+          max-width: 50%;
+        }
+      }
+      h3 {
+        font-size: 1.5vw;
+        @include mobile {
+          font-size: 10px;
+        }
+      }
+      p {
+        font-size: 1.2vw;
+        width: 80%;
+        @include mobile {
+          font-size: 8px;
+        }
+      }
+    }
+  }
+}

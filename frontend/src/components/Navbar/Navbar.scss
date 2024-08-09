@@ -33,10 +33,10 @@
       width: 45px;
       height: 45px;
 
-      @include desktop {
-        width: 20px;
-        height: 20px;
-      }
+      // @include desktop {
+      //   width: 20px;
+      //   height: 20px;
+      // }
       @include mobile {
         width: 30px;
         height: 30px;

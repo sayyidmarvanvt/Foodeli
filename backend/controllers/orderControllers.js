@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 //placing order
 export const placeOrder = async (req, res) => {
-  const fronted_url = "https://foodeli-frontend.onrender.com";
+  const fronted_url = "http://localhost:5174";
   try {
     const newOrder = new orderModal({
       userId: req.body.userId,

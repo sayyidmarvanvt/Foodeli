@@ -1,0 +1,80 @@
+@import "../../index.scss";
+
+.login {
+  position: absolute;
+  z-index: 100;
+  width: 100%;
+  height: 100%;
+  background: #00000090;
+  display: flex;
+  justify-content: center;
+
+  
+  @include mobile{
+      height: 60%;
+
+  }
+
+  .login-container {
+    place-self: center;
+    width: max(23vw, 300px);
+    color: #808080;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 25px 30px;
+    border-radius: 8px;
+    font-size: 14px;
+    animation: fadeIn 0.5s;
+
+    .login-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: black;
+
+      img {
+        width: 16px;
+        cursor: pointer;
+      }
+    }
+    .login-inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      input {
+        outline: none;
+        border: 1px solid #c9c9c9;
+        padding: 10px;
+        border-radius: 4px;
+      }
+    }
+
+    button {
+      border: none;
+      padding: 10px;
+      border-radius: 4px;
+      color: white;
+      background-color: #ed0029;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    .login-condition {
+      display: flex;
+      align-items: start;
+      gap: 8px;
+      margin-top: -15px;
+
+      input {
+        margin-top: 5px;
+      }
+    }
+    span {
+      color: #ed0029;
+      font-weight: 500;
+      cursor: pointer;
+    }
+  }
+}

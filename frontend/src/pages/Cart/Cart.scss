@@ -1,0 +1,121 @@
+@import "../../index.scss";
+
+.cart {
+  margin-top: 100px;
+
+  .cart-items-title {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 0.5fr;
+    align-items: center;
+    gap: 5px;
+    color: grey;
+    font-size: max(1vw, 12px);
+  }
+
+  .cart-items-item {
+    margin: 10px 0px;
+    color: black;
+
+    img {
+      width: 50px;
+
+      @include mobile {
+        width: 35px;
+        height: 35px;
+      }
+    }
+
+    .cross {
+      cursor: pointer;
+    }
+  }
+  hr {
+    height: 1px;
+    background-color: #e2e2e2;
+    border: none;
+  }
+
+  .cart-bottom {
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between;
+    gap: max(12vw, 20px);
+
+    @include tablet {
+      flex-direction: column-reverse;
+    }
+    .cart-total {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      hr {
+        margin: 10px 0px;
+      }
+
+      .cart-total-details {
+        display: flex;
+        justify-content: space-between;
+        color: #555;
+
+        p {
+          @include mobile {
+            font-size: 12px;
+          }
+        }
+      }
+      button {
+        border: none;
+        color: white;
+        background-color: #ed0029;
+        width: max(15vw, 200px);
+        padding: 12px 0px;
+        border-radius: 4px;
+        cursor: pointer;
+        @include mobile {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  .cart-promocode {
+    flex: 1;
+
+    @include tablet {
+      justify-content: start;
+    }
+    p {
+      color: #555;
+      @include mobile {
+        font-size: 12px;
+      }
+    }
+    .cart-promocode-input {
+      margin-top: 10px;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #eaeaea;
+      border-radius: 4px;
+
+      input {
+        background: transparent;
+        border: none;
+        outline: none;
+        padding-left: 10px;
+      }
+      button {
+        margin-left: -30px;
+        width: max(10vw, 150px);
+        padding: 12px 5px;
+        background-color: black;
+        border: none;
+        color: white;
+        border-radius: 4px;
+      }
+    }
+  }
+}

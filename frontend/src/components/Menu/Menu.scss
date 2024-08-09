@@ -1,0 +1,127 @@
+@import "../../index.scss";
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include mobile {
+    gap: 5px;
+  }
+  @include tablet{
+    gap: 5px;
+  }
+
+  h1 {
+    color: #eb0029;
+    font-size: 1.5vw;
+    font-weight: 500;
+
+    @include mobile {
+      font-size: 10px;
+    }
+
+  }
+
+  .menu-text {
+    color: black;
+    font-size: 2.5vw;
+    font-weight: 600;
+
+    @include mobile {
+      font-size: 15px;
+    }
+  }
+
+  .menu-list {
+    display: flex;
+    flex-direction: row;
+
+    @include mobile {
+      flex-direction: column;
+    }
+  }
+
+  .menu-right {
+    width: 200px;
+    max-height: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: scroll;
+    padding: 10px;
+    border-radius: 10px;
+    // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    @include mobile {
+      flex-direction: row;
+      width: 100%;
+      max-height: 60px;
+    }
+
+    /* Scrollbar styling */
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+      margin-top: 30px;
+      margin-bottom: 30px;
+
+      @include mobile {
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #eb0029;
+      border-radius: 10px;
+    }
+
+    .menu-list-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 10px;
+      width: 100%;
+      cursor: pointer;
+      animation: fadeIn 3s;
+
+      @include mobile {
+        padding: 0%;
+        gap: 7px;
+      }
+
+      img {
+        width: 25px;
+        height: 25px;
+        border-radius: 5px;
+      }
+
+      p {
+        flex: 1; /* Make the text take the remaining space */
+        font-size: 0.9em;
+        margin: 0;
+
+        @include mobile {
+          font-size: 0.6em;
+        }
+      }
+    }
+
+    .active {
+      background-color: #eb0029;
+      border-radius: 50px;
+      padding: 10px;
+      color: white;
+
+      @include mobile {
+        padding: 5px;
+      }
+    }
+  }
+}

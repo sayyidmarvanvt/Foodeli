@@ -1,0 +1,226 @@
+@import "../../index.scss";
+
+.navbar {
+  position: sticky;
+  background-color: #ffffff;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+  padding: 20px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease-in-out;
+
+  &.navbar--hidden {
+    transform: translateY(-100%);
+  }
+
+  &.navbar--visible {
+    transform: translateY(0);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    @include mobile {
+      gap: 5px;
+    }
+
+    img {
+      width: 45px;
+      height: 45px;
+
+      @include desktop {
+        width: 20px;
+        height: 20px;
+      }
+      @include mobile {
+        width: 30px;
+        height: 30px;
+      }
+    }
+    p {
+      font-size: max(1vw, 20px);
+
+      @include mobile {
+        font-size: 15px;
+      }
+      @include desktop {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .navbar-menu {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    color: #333333;
+    font-size: 18px;
+
+    @include desktop {
+      font-size: 17px;
+    }
+
+    @include tablet {
+      display: none;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      position: relative;
+      font-size: max(1vw, 16px);
+
+      &.active::after {
+        content: "";
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background-color: #eb0029;
+        border-radius: 50%;
+        bottom: -10px;
+        left: 40%;
+        transform: translateX(-50%);
+      }
+
+      &.active {
+        color: #eb0029;
+      }
+
+      a {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        text-decoration: none; // Ensure links have no underline
+        color: inherit; // Make sure links inherit the color from the parent li
+      }
+    }
+  }
+
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    @include desktop {
+      gap: 30px;
+    }
+    @include mobile {
+      gap: 10px;
+    }
+
+    img {
+      width: 17px;
+      height: 17px;
+    }
+
+    .navbar-search-icon {
+      margin-top: 4px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      img {
+        width: 19px;
+        height: 19px;
+      }
+
+      .dot {
+        position: absolute;
+        min-width: 10px;
+        min-height: 10px;
+        background-color: #eb0029;
+        border-radius: 10px;
+        top: -4px;
+        right: -4px;
+      }
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      background-color: #eb0029;
+      border: none;
+      color: white;
+      padding: 10px 30px;
+      border-radius: 50px;
+      transition: 0.3s;
+      cursor: pointer;
+      gap: 4px;
+      font-size: 16px;
+
+      @include desktop {
+        padding: 8px 25px;
+      }
+      @include tablet {
+        padding: 7px 20px;
+        font-size: 15px;
+      }
+      @include mobile {
+        padding: 5px 10px;
+        font-size: 10px;
+      }
+
+      &:hover {
+        background-color: #ffffff;
+        color: #eb0029;
+        outline: 1px solid #eb0029;
+      }
+    }
+
+    .navbar-profile {
+      display: flex;
+      align-items: center;
+      position: relative;
+      cursor: pointer;
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+
+      .nav-profile-dropdown {
+        display: none;
+        position: absolute;
+        top: 25px;
+        right: 0;
+        z-index: 1;
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 5px;
+        border-radius: 4px;
+        outline: 1px solid #eb0029;
+        list-style: none;
+
+        &:hover{
+          display: flex;
+        }
+
+        li {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+
+          &:hover {
+            color: #eb0029;
+          }
+
+          img {
+            width: 20px;
+            color: #eb0029;
+          }
+        }
+      }
+
+      &.active .nav-profile-dropdown {
+        display: flex;
+      }
+    }
+  }
+}

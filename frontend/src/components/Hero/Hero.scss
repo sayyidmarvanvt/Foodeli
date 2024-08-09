@@ -1,0 +1,94 @@
+@import "../../index.scss";
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 38vw;
+  background: url("./bg.svg") no-repeat;
+  background-position: right;
+  background-size: contain;
+
+  @include mobile {
+    height: 100%;
+    flex-direction: column-reverse;
+    margin: 10px auto;
+    background: none;
+  }
+
+  .header-img {
+    display: none;
+
+    @include mobile {
+      display: block;
+      max-width: 70%;
+      height: 100%;
+    }
+  }
+
+  .header-contents {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    gap: 1.5vw;
+    margin: auto 0;
+    animation: fadeIn 3s;
+    margin: 2vw 0;
+
+    @include mobile {
+      margin: auto;
+      max-width: 90%;
+    }
+
+    h2 {
+      font-weight: 500;
+      font-size: max(4vw, 20px);
+
+      @include mobile {
+        font-size: 18px;
+
+        br {
+          display: none;
+        }
+      }
+
+      span {
+        color: #eb0029;
+      }
+    }
+    p {
+      font-size: 1.5vw;
+      max-width: 40%;
+
+      @include mobile {
+        max-width: 80%;
+        font-size: 8px;
+      }
+    }
+
+    button {
+      border: none;
+      color: white;
+      padding: 1vw 2.3vw;
+      background-color: #eb0029;
+      font-size: max(1vw, 13px);
+      border-radius: 50px;
+      font-size: max(1.4vw, 14px);
+
+      @include tablet {
+        padding: 7px 20px;
+        font-size: 15px;
+      }
+      @include mobile {
+        padding: 5px 10px;
+        font-size: 8px;
+      }
+
+      &:hover {
+        background-color: #ffffff;
+        color: #eb0029;
+        outline: 1px solid #eb0029;
+      }
+    }
+  }
+}

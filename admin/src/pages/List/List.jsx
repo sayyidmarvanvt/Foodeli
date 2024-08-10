@@ -8,7 +8,7 @@ const List = () => {
 
   const fetchlist = async () => {
     try {
-      const response = await axios.get("/api/food/list");
+      const response = await axios.get("https://foodeli-backend-55b2.onrender.com/api/food/list");
       setList(response.data.data);
     } catch (error) {
       toast.error(error);
@@ -21,7 +21,7 @@ const List = () => {
 
   const removeFood = async (foodId) => {
     try {
-      const response = await axios.post("/api/food/remove", { id: foodId });
+      const response = await axios.post("https://foodeli-backend-55b2.onrender.com/api/food/remove", { id: foodId });
       await fetchlist();
       toast.success(response.data.message);
     } catch (error) {

@@ -10,11 +10,12 @@
     height: 100%;
     flex-direction: column;
     margin: 10px auto;
+    gap: 10px;
   }
 
   .header-img {
     max-width: 100%;
-    height: 100%;
+    height: 90%;
 
 
     @include mobile {
@@ -33,7 +34,8 @@
 
     @include mobile {
       margin: auto;
-      max-width: 90%;
+      max-width: 80%;
+      gap: 8px;
     }
 
     h2 {
@@ -44,7 +46,7 @@
         font-size: 18px;
 
         br {
-          display: none;
+          // display: none;
         }
       }
 
@@ -54,10 +56,10 @@
     }
     p {
       font-size: 1.5vw;
-      // max-width: 70%;
+      max-width: 80%;
 
       @include mobile {
-        // max-width: 70%;
+        max-width: 60%;
         font-size: 8px;
       }
     }

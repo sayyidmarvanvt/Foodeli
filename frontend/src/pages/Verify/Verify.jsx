@@ -10,7 +10,7 @@ const Verify = () => {
   const navigate = useNavigate();
 
   const verifyPayment = async (e) => {
-    const response = await axios.post("/api/order/verify", {
+    const response = await axios.post("https://foodeli-backend-55b2.onrender.com/api/order/verify", {
       success,
       orderId,
     });

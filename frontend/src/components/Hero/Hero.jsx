@@ -4,7 +4,7 @@ import "./Hero.scss";
 const Hero = () => {
   return (
     <div className="header" id="header">
-      <img src="./bg.png" alt="" className="header-img"/>
+     
       <div className="header-contents">
         <h2>
           It’s not just a <span>Food</span>,<br /> It's an{" "}
@@ -16,6 +16,7 @@ const Hero = () => {
         </p>
         <button>Get Started</button>
       </div>
+      <img src="./bg.png" alt="" className="header-img"/>
     </div>
   );
 };

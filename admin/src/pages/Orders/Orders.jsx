@@ -8,7 +8,7 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
 
   const fetchAllOrders = async () => {
-    const response = await axios.get("/api/order/list");
+    const response = await axios.get("https://foodeli-backend-55b2.onrender.com/api/order/list");
     if (response.data.success) {
       setOrders(response.data.data);
     } else {
@@ -17,7 +17,7 @@ const Orders = () => {
   };
 
   const statusHandler = async (e, orderId) => {
-    const response = await axios.post("/api/order/status", {
+    const response = await axios.post("https://foodeli-backend-55b2.onrender.com/api/order/status", {
       orderId,
       status: e.target.value,
     });

@@ -9,8 +9,8 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   @include mobile {
-    width: 130px;
-    height: 155px;
+    width: 160px;
+    height: 170px;
   }
 
   &.active {
@@ -33,7 +33,7 @@
       animation: slideInFromLeft 0.5s ease forwards;
 
       @include mobile {
-        width: 130px;
+        width: 140px;
         padding: 5px;
       }
 

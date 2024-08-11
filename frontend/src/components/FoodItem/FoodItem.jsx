@@ -18,7 +18,7 @@ const FoodItem = ({ id, name, price, image }) => {
   return (
     <div className={`food-item ${active ? "active" : ""}`}>
       <img
-        src={"/api/images/" + image}
+        src={"https://foodeli-backend-55b2.onrender.com/api/images/" + image}
         alt=""
         className="food-item-image"
         onClick={() => setActive(!active)}

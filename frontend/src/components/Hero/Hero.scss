@@ -5,15 +5,15 @@
   align-items: center;
   justify-content: space-between;
   height: 38vw;
-  background: url("./bg.png") no-repeat;
-  background-position: right;
-  background-size: contain;
+  // background: url("./bg.png") no-repeat;
+  // background-position: right;
+  // background-size: contain;
 
   @include mobile {
     height: 100%;
     flex-direction: column-reverse;
     margin: 10px auto;
-    background: none;
+    // background: none;
   }
 
   .header-img {

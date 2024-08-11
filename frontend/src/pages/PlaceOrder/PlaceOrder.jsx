@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./PlaceOrder.scss";
-
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 const PlaceOrder = () => {
   const { getTotalCartAmount, token, foodlist, cartItems } =
     useContext(StoreContext);
@@ -51,7 +51,7 @@ const PlaceOrder = () => {
       amount: getTotalCartAmount() + 2,
     };
 
-    let response = await axios.post("/api/order/place", orderData, {
+    let response = await axios.post("https://foodeli-backend-55b2.onrender.com/api/order/place", orderData, {
       headers: { token },
     });
     if (response.data.success) {

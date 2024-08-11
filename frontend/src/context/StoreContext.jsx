@@ -15,14 +15,14 @@ const StoreContextProvider = (props) => {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
     }
     if (token) {
-      await axios.post("/api/cart/add", { itemId }, { headers: { token } });
+      await axios.post("https://foodeli-backend-55b2.onrender.com/api/cart/add", { itemId }, { headers: { token } });
     }
   };
   // console.log(cartItems);
   const removeFromCart = async (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
     if (token) {
-      await axios.post("/api/cart/remove", { itemId }, { headers: { token } });
+      await axios.post("https://foodeli-backend-55b2.onrender.com/api/cart/remove", { itemId }, { headers: { token } });
     }
   };
 
@@ -38,13 +38,13 @@ const StoreContextProvider = (props) => {
   };
 
   const fetchFoodList = async () => {
-    const response = await axios.get("/api/food/list");
+    const response = await axios.get("https://foodeli-backend-55b2.onrender.com/api/food/list");
     setFoodList(response.data.data);
   };
 
   const loadCartData = async (token) => {
     const response = await axios.post(
-      "/api/cart/get",
+      "https://foodeli-backend-55b2.onrender.com/api/cart/get",
       {},
       { headers: { token } }
     );

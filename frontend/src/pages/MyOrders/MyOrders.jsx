@@ -10,7 +10,7 @@ const MyOrders = () => {
 
   const fetchOrders = async () => {
     const response = await axios.post(
-      "/api/order/userorders",
+      "https://foodeli-backend-55b2.onrender.com/api/order/userorders",
       {},
       { headers: { token } }
     );

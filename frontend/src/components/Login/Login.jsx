@@ -23,9 +23,9 @@ const Login = ({ setShowLogin }) => {
     let url = "";
     e.preventDefault();
     if (currState === "Login") {
-      url += "/api/user/login";
+      url += "https://foodeli-backend-55b2.onrender.com/api/user/login";
     } else {
-      url += "/api/user/register";
+      url += "https://foodeli-backend-55b2.onrender.com/api/user/register";
     }
     const response = await axios.post(url, data);
     if (response.data.success) {

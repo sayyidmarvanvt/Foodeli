@@ -20,7 +20,15 @@ const StoreContextProvider = (props) => {
   };
   // console.log(cartItems);
   const removeFromCart = async (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    setCartItems((prev) => {
+      const newCartItems = { ...prev };
+      if (newCartItems[itemId] > 1) {
+        newCartItems[itemId] -= 1; 
+      } else {
+        delete newCartItems[itemId]; 
+      }
+      return newCartItems;
+    });
     if (token) {
       await axios.post("https://foodeli-backend-55b2.onrender.com/api/cart/remove", { itemId }, { headers: { token } });
     }

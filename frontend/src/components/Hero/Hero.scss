@@ -20,6 +20,7 @@
 
     @include mobile {
       max-width: 80%;
+      height: 70%;
     }
   }
 
@@ -46,7 +47,7 @@
         font-size: 18px;
 
         br {
-          // display: none;
+          display: none;
         }
       }
 

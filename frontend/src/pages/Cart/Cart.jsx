@@ -26,7 +26,7 @@ const Cart = () => {
             return (
               <div key={index}>
                 <div className="cart-items-title cart-items-item">
-                  <img src={"/api/images/"+item.image} alt="" />
+                  <img src={"https://foodeli-backend-55b2.onrender.com/api/images/"+item.image} alt="" />
                   <p>{item.name}</p>
                   <p>${item.price}</p>
                   <p>{cartItems[item._id]}</p>

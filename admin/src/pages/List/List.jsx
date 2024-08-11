@@ -43,7 +43,7 @@ const List = () => {
         </div>
         {list.map((item, index) => (
           <div key={index} className="list-table-format">
-            <img src={`api/images/${item.image}`} alt="" />
+            <img src={`https://foodeli-backend-55b2.onrender.com/api/images/${item.image}`} alt="" />
             <p>{item.name}</p>
             <p>{item.category}</p>
             <p>${item.price}</p>

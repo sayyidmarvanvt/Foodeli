@@ -26,9 +26,10 @@ app.use("/api/user",userRouter)
 app.use("/api/cart",cartRouter)
 app.use("/api/order",orderRouter)
 
-app.get("/", (req, res) => {
-  res.send("api working");
+app.get('/', (req, res) => {
+  res.send('Backend is running.');
 });
+
 app.listen(port, () => {
   console.log(`Server Strarted on http://localhost:${port}`);
 });

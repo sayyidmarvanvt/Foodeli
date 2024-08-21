@@ -22,11 +22,11 @@ Foodeli is a comprehensive food ordering platform designed to provide users with
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/foodeli.git
+   git clone https://github.com/your-username/Foodeli.git
    ```
 2. **Navigate to the project directory:**
    ```bash
-   cd foodeli
+   cd Foodeli
    ```
 3. **Install the dependencies:**
    ```bash

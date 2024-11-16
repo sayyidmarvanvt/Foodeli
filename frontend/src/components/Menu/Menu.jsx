@@ -4,7 +4,6 @@ import { menu_list } from "../../assets/assets";
 import FoodDisplay from "../FoodDisplay/FoodDisplay";
 
 const Menu = ({ category, setCategory }) => {
-  console.log(category);
   return (
     <div className="menu" id="menu">
       <h1>OUR MENU</h1>

@@ -7,6 +7,7 @@ const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
   const [foodlist, setFoodList] = useState([]);
+  const [loading, setLoading] = useState(false); 
 
   const addToCart = async (itemId) => {
     if (!cartItems[itemId]) {
@@ -15,22 +16,30 @@ const StoreContextProvider = (props) => {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
     }
     if (token) {
-      await axios.post("https://foodeli-backend-55b2.onrender.com/api/cart/add", { itemId }, { headers: { token } });
+      await axios.post(
+        "https://foodeli-backend-55b2.onrender.com/api/cart/add",
+        { itemId },
+        { headers: { token } }
+      );
     }
   };
-  // console.log(cartItems);
+
   const removeFromCart = async (itemId) => {
     setCartItems((prev) => {
       const newCartItems = { ...prev };
       if (newCartItems[itemId] > 1) {
-        newCartItems[itemId] -= 1; 
+        newCartItems[itemId] -= 1;
       } else {
-        delete newCartItems[itemId]; 
+        delete newCartItems[itemId];
       }
       return newCartItems;
     });
     if (token) {
-      await axios.post("https://foodeli-backend-55b2.onrender.com/api/cart/remove", { itemId }, { headers: { token } });
+      await axios.post(
+        "https://foodeli-backend-55b2.onrender.com/api/cart/remove",
+        { itemId },
+        { headers: { token } }
+      );
     }
   };
 
@@ -46,9 +55,13 @@ const StoreContextProvider = (props) => {
   };
 
   const fetchFoodList = async () => {
-    const response = await axios.get("https://foodeli-backend-55b2.onrender.com/api/food/list");
-    localStorage.setItem("foodlist", JSON.stringify(response.data.data));
+    setLoading(true); // Set loading to true when fetching starts
+    const response = await axios.get(
+      "https://foodeli-backend-55b2.onrender.com/api/food/list"
+    );
     setFoodList(response.data.data);
+    localStorage.setItem("foodlist", JSON.stringify(response.data.data));
+    setLoading(false); // Set loading to false after the data is fetched
   };
 
   const loadCartData = async (token) => {
@@ -57,16 +70,22 @@ const StoreContextProvider = (props) => {
       {},
       { headers: { token } }
     );
-    console.log(response);
-    setCartItems(response.data.cartData)
+    setCartItems(response.data.cartData);
   };
 
   useEffect(() => {
     async function loadData() {
-      await fetchFoodList();
+      const storedFoodList = localStorage.getItem("foodlist");
+      if (storedFoodList) {
+        setFoodList(JSON.parse(storedFoodList)); // Load from localStorage
+        setLoading(false); // If foodlist is in localStorage, no need to fetch
+      } else {
+        await fetchFoodList(); // Fetch from API if not in localStorage
+      }
+
       if (localStorage.getItem("token")) {
         setToken(localStorage.getItem("token"));
-        await loadCartData(localStorage.getItem("token"))
+        await loadCartData(localStorage.getItem("token"));
       }
     }
     loadData();
@@ -81,7 +100,9 @@ const StoreContextProvider = (props) => {
     getTotalCartAmount,
     token,
     setToken,
+    loading, 
   };
+
   return (
     <StoreContext.Provider value={contextValue}>
       {props.children}

@@ -23,15 +23,21 @@ connectDB();
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   limit: 5,
-  skipSuccessfulRequests: true,
-  standardHeaders: true, 
+  // skipSuccessfulRequests: true,
+  standardHeaders: true,
   legacyHeaders: false,
+  // validate: { xForwardedForHeader: false },
 });
-
+app.use(limiter);
+app.set("trust proxy", 1);
+app.get("/ip", (request, response) => response.send(request.ip));
+app.get("/x-forwarded-for", (request, response) =>
+  response.send(request.headers["x-forwarded-for"])
+);
 //api endpoints
 app.use("/api/food", foodRouter);
 app.use("/api/images", express.static("uploads"));
-app.use("/api/user", limiter, userRouter);
+app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 

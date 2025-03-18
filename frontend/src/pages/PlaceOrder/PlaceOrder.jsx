@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const PlaceOrder = () => {
-  const { getTotalCartAmount, token, foodlist, cartItems } =
+  const { getTotalCartAmount, token, foodlist, cartItems, discount, total } =
     useContext(StoreContext);
   const navigate = useNavigate();
   const [data, setData] = useState({
@@ -48,12 +48,15 @@ const PlaceOrder = () => {
     let orderData = {
       address: data,
       items: orderItems,
-      amount: getTotalCartAmount() + 2,
+      amount: total, // Use the total from context (includes discount)
+      promoCode: promoCode, // Include the promo code in the order data
     };
 
-    let response = await axios.post("https://foodeli-backend-55b2.onrender.com/api/order/place", orderData, {
-      headers: { token },
-    });
+    let response = await axios.post(
+      "https://foodeli-backend-55b2.onrender.com/api/order/place",
+      orderData,
+      { headers: { token } }
+    );
     if (response.data.success) {
       const { session_url } = response.data;
       window.location.replace(session_url);
@@ -61,6 +64,7 @@ const PlaceOrder = () => {
       alert("Error");
     }
   };
+
   return (
     <form onSubmit={placeOrder} className="place-order">
       <div className="place-order-left">
@@ -154,18 +158,23 @@ const PlaceOrder = () => {
             </div>
             <hr />
             <div className="cart-total-details">
-              <p>Deliver Fee</p>
+              <p>Delivery Fee</p>
               <p>${getTotalCartAmount() === 0 ? 0 : 2}</p>
             </div>
             <hr />
+            {discount > 0 && (
+              <div className="cart-total-details">
+                <p>Discount</p>
+                <p>-${discount}</p>
+              </div>
+            )}
+            <br />
             <div className="cart-total-details">
               <p>Total</p>
-              <p>
-                ${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}
-              </p>
+              <p>${total}</p>
             </div>
           </div>
-          <button type="sumbit">PROCEED TO PAYMENT</button>
+          <button type="submit">PROCEED TO PAYMENT</button>
         </div>
       </div>
     </form>

@@ -12,7 +12,6 @@ const Navbar = ({ setShowLogin }) => {
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [dropdownVisible, setDropdownVisible] = useState(false);
   const navigate = useNavigate();
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
@@ -36,19 +35,14 @@ const Navbar = ({ setShowLogin }) => {
     };
   }, [lastScrollY]);
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    setToken("");
-    navigate("/");
-  };
+
 
   return (
     <div
       className={`navbar ${showNavbar ? "navbar--visible" : "navbar--hidden"}`}
     >
       <Link to="/">
-        <div className="logo" 
-        onClick={() => handleMenuClick("header")}>
+        <div className="logo" onClick={() => handleMenuClick("header")}>
           <img src={assets.logo} alt="Foodeli logo" />
           <p>Foodeli</p>
         </div>
@@ -96,22 +90,8 @@ const Navbar = ({ setShowLogin }) => {
             Login
           </button>
         ) : (
-          <div className={`navbar-profile ${dropdownVisible ? "active" : ""}`}>
-            <img
-              onClick={() => setDropdownVisible(!dropdownVisible)}
-              src={assets.profile_icon}
-              alt=""
-            />
-            <ul className="nav-profile-dropdown">
-              <li onClick={()=>navigate("/myorders")}>
-                <img src={assets.bag_icon} alt="" /> <p>Orders</p>
-              </li>
-              <hr />
-              <li className="logout" onClick={logout}>
-                <img src={assets.logout_icon} alt="" />
-                <p>Logout</p>
-              </li>
-            </ul>
+          <div className={`navbar-profile`} onClick={() => setShowLogin(true)}>
+            <img src={assets.profile_icon} alt="" />
           </div>
         )}
       </div>

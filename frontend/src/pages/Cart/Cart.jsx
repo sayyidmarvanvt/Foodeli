@@ -1,13 +1,74 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./Cart.scss";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const { cartItems, foodlist, removeFromCart, getTotalCartAmount } =
-    useContext(StoreContext);
-
+  const {
+    cartItems,
+    foodlist,
+    removeFromCart,
+    getTotalCartAmount,
+    total,
+    setTotal,
+    discount,
+    setDiscount,
+    promoCode,
+    setPromoCode,
+  } = useContext(StoreContext);
   const navigate = useNavigate();
+
+  const [isPromoApplied, setIsPromoApplied] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const applyPromoCode = () => {
+    const validPromoCodes = {
+      SAVE10: 10, // $10 discount
+      FREESHIP: 2, // Free delivery (subtract delivery fee)
+    };
+
+    if (!promoCode.trim()) {
+      // If promo code is empty, reset discount and clear states
+      setDiscount(0);
+      setIsPromoApplied(false);
+      setErrorMessage("");
+      setTotal(getTotalCartAmount() + (getTotalCartAmount() === 0 ? 0 : 2)); // Reset total in context
+      return;
+    }
+
+    if (!validPromoCodes[promoCode]) {
+      setDiscount(0);
+      setIsPromoApplied(false);
+      setErrorMessage("Invalid promo code.");
+      setTotal(getTotalCartAmount() + (getTotalCartAmount() === 0 ? 0 : 2)); 
+      return;
+    }
+
+    if (validPromoCodes[promoCode]) {
+      const newDiscount = validPromoCodes[promoCode];
+      const newTotal =
+        getTotalCartAmount() -
+        newDiscount +
+        (getTotalCartAmount() === 0 ? 0 : 2);
+
+      // Ensure the total doesn't go below 0
+      if (newTotal >= 0) {
+        setDiscount(newDiscount);
+        setIsPromoApplied(true);
+        setErrorMessage("");
+        setTotal(newTotal); // Update total in context
+      } else {
+        setErrorMessage("Promo code cannot make the total negative.");
+      }
+    } else {
+      setErrorMessage("Invalid promo code.");
+    }
+  };
+
+  const subtotal = getTotalCartAmount();
+  const deliveryFee = subtotal === 0 ? 0 : 2;
+  const calculatedTotal = subtotal + deliveryFee - discount;
+
   return (
     <div className="cart">
       <div className="cart-items">
@@ -26,7 +87,7 @@ const Cart = () => {
             return (
               <div key={index}>
                 <div className="cart-items-title cart-items-item">
-                  <img src={"https://foodeli-backend-55b2.onrender.com/api/images/"+item.image} alt="" />
+                  <img src={item.image} alt="" />
                   <p>{item.name}</p>
                   <p>${item.price}</p>
                   <p>{cartItems[item._id]}</p>
@@ -41,38 +102,54 @@ const Cart = () => {
           }
         })}
       </div>
+
       <div className="cart-bottom">
         <div className="cart-total">
           <h2>Cart Totals</h2>
           <div>
             <div className="cart-total-details">
               <p>Subtotal</p>
-              <p>${getTotalCartAmount()}</p>
+              <p>${subtotal}</p>
             </div>
             <hr />
             <div className="cart-total-details">
-              <p>Deliver Fee</p>
-              <p>${getTotalCartAmount() === 0 ? 0 : 2}</p>
+              <p>Delivery Fee</p>
+              <p>${deliveryFee}</p>
             </div>
             <hr />
+            {isPromoApplied && (
+              <div className="cart-total-details">
+                <p>Discount</p>
+                <p>-${discount}</p>
+              </div>
+            )}
+            <br />
             <div className="cart-total-details">
               <p>Total</p>
-              <p>
-                ${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 2}
-              </p>
+              <p>${calculatedTotal}</p>
             </div>
           </div>
-          <button onClick={() => navigate("/order")}>
+          <button
+            onClick={() => navigate("/order")}
+            disabled={Object.keys(cartItems).length === 0}
+          >
             PROCEED TO CHECKOUT
           </button>
         </div>
+
         <div className="cart-promocode">
           <div>
-            <p>If you have a promo code, Enter it here</p>
+            <p>If you have a promo code, enter it here</p>
             <div className="cart-promocode-input">
-              <input type="text" placeholder="promo code" />
-              <button>Submit</button>
+              <input
+                type="text"
+                placeholder="promo code"
+                value={promoCode}
+                onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
+              />
+              <button onClick={applyPromoCode}>Submit</button>
             </div>
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
           </div>
         </div>
       </div>

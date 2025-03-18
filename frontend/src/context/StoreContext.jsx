@@ -7,7 +7,10 @@ const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
   const [foodlist, setFoodList] = useState([]);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
+  const [total, setTotal] = useState(0); // Total amount
+  const [discount, setDiscount] = useState(0); // Discount amount
+  const [promoCode, setPromoCode] = useState(""); // Applied promo code
 
   const addToCart = async (itemId) => {
     if (!cartItems[itemId]) {
@@ -60,7 +63,7 @@ const StoreContextProvider = (props) => {
       "https://foodeli-backend-55b2.onrender.com/api/food/list"
     );
     console.log(response.data.data);
-    
+
     setFoodList(response.data.data);
     localStorage.setItem("foodlist", JSON.stringify(response.data.data));
     setLoading(false); // Set loading to false after the data is fetched
@@ -102,7 +105,13 @@ const StoreContextProvider = (props) => {
     getTotalCartAmount,
     token,
     setToken,
-    loading, 
+    loading,
+    total,
+    setTotal,
+    discount,
+    setDiscount,
+    promoCode,
+    setPromoCode,
   };
 
   return (

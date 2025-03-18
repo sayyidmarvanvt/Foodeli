@@ -57,6 +57,10 @@
     }
 
     button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
       border: none;
       padding: 10px;
       border-radius: 4px;
@@ -64,6 +68,17 @@
       background-color: #ed0029;
       font-size: 15px;
       cursor: pointer;
+
+      img {
+        background-color: white;
+        width: 25px;
+        height: 25px;
+
+        @include mobile {
+          width: 20px;
+          height: 20px;
+        }
+      }
     }
 
     .google {

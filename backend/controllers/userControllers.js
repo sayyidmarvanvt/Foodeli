@@ -29,9 +29,7 @@ const createToken = (id) => {
 };
 
 //register user
-export const registerUser = async (req, res) => {
-  console.log(req.body);
-  
+export const registerUser = async (req, res) => {  
   const { name, password, email } = req.body;
   try {
     //checking is user already exists
@@ -88,8 +86,8 @@ export const googleUser = async (req, res) => {
        const hashedPassword = await bcryptjs.hash(generatedPassword, salt);
 
        const newUser = await userModal({
-         name: name,
-         email: email,
+         name: req.body.name,
+         email: req.body.email,
          password: hashedPassword,
        });
 

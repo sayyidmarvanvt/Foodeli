@@ -10,9 +10,9 @@ const Review = () => {
         <h2>WHAT THEY SAY</h2>
         <h1>What Our Customer Say About Us</h1>
         <p>
-          “Fudo is the best. Besides the many and delicious meals, the service
+          “Foodeli is the best. Besides the many and delicious meals, the service
           is also very good, especially in the very fast delivey. I highly
-          recommend Fudo to you”.
+          recommend Foodeli to you”.
         </p>
 
         <div className="review-box">

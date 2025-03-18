@@ -26,7 +26,20 @@ const Add = () => {
     formData.append("price", Number(data.price));
     formData.append("category", data.category);
     formData.append("image", image);
-    const response = await axios.post(`https://foodeli-backend-55b2.onrender.com/api/food/add`, formData);
+
+   for (let [key, value] of formData.entries()) {
+     console.log(key, value);
+   }
+
+   const response = await axios.post(
+     `https://foodeli-backend-55b2.onrender.com/api/food/add`,
+     formData,
+     {
+       headers: {
+         "Content-Type": "multipart/form-data", // Ensure the correct content type
+       },
+     }
+   );
     if (response.data.success) {
       setData({
         name: "",
@@ -43,7 +56,11 @@ const Add = () => {
 
   return (
     <div className="add">
-      <form onSubmit={onSubmitHandler} className="flex-col">
+      <form
+        onSubmit={onSubmitHandler}
+        className="flex-col"
+        encType="multipart/form-data"
+      >
         <div className="add-img-upload flex-col">
           <p>Upload Image</p>
           <label htmlFor="image">

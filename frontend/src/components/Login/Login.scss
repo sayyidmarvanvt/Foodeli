@@ -1,7 +1,7 @@
 @import "../../index.scss";
 
 .login {
-  position: absolute;
+  position: fixed;
   z-index: 100;
   width: 100%;
   height: 100%;
@@ -9,10 +9,8 @@
   display: flex;
   justify-content: center;
 
-  
-  @include mobile{
-      height: 60%;
-
+  @include mobile {
+    height: 60%;
   }
 
   .login-container {
@@ -52,6 +50,12 @@
       }
     }
 
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
     button {
       border: none;
       padding: 10px;
@@ -60,6 +64,10 @@
       background-color: #ed0029;
       font-size: 15px;
       cursor: pointer;
+    }
+
+    .google {
+      background-color: #4285f4;
     }
     .login-condition {
       display: flex;

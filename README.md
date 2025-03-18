@@ -16,13 +16,13 @@ Foodeli is a comprehensive food ordering platform designed to provide users with
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB
 - **Payment Integration:** Stripe
-- **Deployment:** (Add your deployment platform, e.g., Heroku, Render)
+- **Deployment:** Render
 
 ## 🛠 Installation and Setup
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/Foodeli.git
+   git clone https://github.com/sayyidmarvanvt/Foodeli.git
    ```
 2. **Navigate to the project directory:**
    ```bash
@@ -47,10 +47,10 @@ Foodeli is a comprehensive food ordering platform designed to provide users with
 
 6. **Open your browser and visit:**
    ```
-   http://localhost:3000
+   http://localhost:4000
    ```
 
 ## 📦 Deployment
 
-- This project is deployed on (Add your deployment platform). You can access the live version [here](https://foodeli-frontend.onrender.com).
+- This project is deployed on Render. You can access the live version [here](https://foodeli-frontend.onrender.com).
 - 

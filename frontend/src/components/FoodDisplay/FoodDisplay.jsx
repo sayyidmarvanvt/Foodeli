@@ -4,7 +4,7 @@ import { StoreContext } from "../../context/StoreContext";
 import FoodItem from "../FoodItem/FoodItem";
 
 const FoodDisplay = ({ category }) => {
-  const { foodlist, loading } = useContext(StoreContext);
+  const { foodlist, loading } = useContext(StoreContext);  
 
   if (loading) {
     return (

@@ -11,8 +11,8 @@ const Home = () => {
   return (
     <div className="home">
       <Hero />
-      <Services />
       <Menu category={category} setCategory={setCategory} />
+      <Services />
       <Review />
       <AppDownload />
     </div>

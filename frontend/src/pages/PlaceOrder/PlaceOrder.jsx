@@ -5,8 +5,15 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const PlaceOrder = () => {
-  const { getTotalCartAmount, token, foodlist, cartItems, discount, total } =
-    useContext(StoreContext);
+  const {
+    getTotalCartAmount,
+    token,
+    foodlist,
+    cartItems,
+    discount,
+    total,
+    promoCode,
+  } = useContext(StoreContext);
   const navigate = useNavigate();
   const [data, setData] = useState({
     firstName: "",
@@ -48,8 +55,8 @@ const PlaceOrder = () => {
     let orderData = {
       address: data,
       items: orderItems,
-      amount: total, // Use the total from context (includes discount)
-      promoCode: promoCode, // Include the promo code in the order data
+      amount: total,
+      promoCode: promoCode, 
     };
 
     let response = await axios.post(

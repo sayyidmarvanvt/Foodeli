@@ -192,7 +192,14 @@ const Login = ({ setShowLogin }) => {
               >
                 My Orders
               </button>
-              <button onClick={logout}>Logout</button>
+              <button
+                onClick={() => {
+                  setShowLogin(false);
+                  logout();
+                }}
+              >
+                Logout
+              </button>
             </div>
           </div>
         )}

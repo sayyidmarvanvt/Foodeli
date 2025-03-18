@@ -54,6 +54,7 @@ const StoreContextProvider = (props) => {
         totalAmount += itemInfo.price * cartItems[item];
       }
     }
+    // setTotal(totalAmount+2)
     return totalAmount;
   };
 

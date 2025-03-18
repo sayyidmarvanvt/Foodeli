@@ -10,7 +10,6 @@ const Cart = () => {
     foodlist,
     removeFromCart,
     getTotalCartAmount,
-    total,
     setTotal,
     discount,
     setDiscount,
@@ -28,7 +27,7 @@ const Cart = () => {
       FREESHIP: 2, // Free delivery (subtract delivery fee)
     };
 
-    if (!promoCode.trim()) {
+  if (!promoCode.trim() || promoCode === "") {
       // If promo code is empty, reset discount and clear states
       setDiscount(0);
       setIsPromoApplied(false);
@@ -41,7 +40,7 @@ const Cart = () => {
       setDiscount(0);
       setIsPromoApplied(false);
       setErrorMessage("Invalid promo code.");
-      setTotal(getTotalCartAmount() + (getTotalCartAmount() === 0 ? 0 : 2)); 
+      setTotal(getTotalCartAmount() + (getTotalCartAmount() === 0 ? 0 : 2));
       return;
     }
 
@@ -65,10 +64,11 @@ const Cart = () => {
       setErrorMessage("Invalid promo code.");
     }
   };
-
+  
   const subtotal = getTotalCartAmount();
   const deliveryFee = subtotal === 0 ? 0 : 2;
   const calculatedTotal = subtotal + deliveryFee - discount;
+
 
   return (
     <div className="cart">
@@ -131,7 +131,10 @@ const Cart = () => {
             </div>
           </div>
           <button
-            onClick={() => navigate("/order")}
+            onClick={() => {
+              navigate("/order");
+              setTotal(calculatedTotal);
+            }}
             disabled={Object.keys(cartItems).length === 0}
           >
             PROCEED TO CHECKOUT

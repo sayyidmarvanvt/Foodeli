@@ -14,6 +14,9 @@ const PlaceOrder = () => {
     total,
     promoCode,
   } = useContext(StoreContext);
+
+  console.log(discount,total,promoCode);
+  
   const navigate = useNavigate();
   const [data, setData] = useState({
     firstName: "",

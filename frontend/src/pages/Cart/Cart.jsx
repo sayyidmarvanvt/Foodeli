@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import "./Cart.scss";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Cart = () => {
   const {
@@ -58,7 +59,7 @@ const Cart = () => {
         setErrorMessage("");
         setTotal(newTotal); // Update total in context
       } else {
-        setErrorMessage("Promo code cannot make the total negative.");
+        toast.error("Promo code cannot make the total negative.");
       }
     } else {
       setErrorMessage("Invalid promo code.");

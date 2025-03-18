@@ -6,6 +6,7 @@ import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from "../../../firebase.js";
+import { toast } from "react-toastify";
 
 const Login = ({ setShowLogin }) => {
   const [currState, setCurrState] = useState("Login");
@@ -50,11 +51,11 @@ const Login = ({ setShowLogin }) => {
         setShowLogin(false);
         navigate("/");
       } else {
-        alert(response.data.message);
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.error("Google Sign-In Error:", error);
-      alert("Failed to sign in with Google.");
+      toast.error("Failed to sign in with Google.");
     }
   };
 
@@ -77,7 +78,7 @@ const Login = ({ setShowLogin }) => {
       localStorage.setItem("token", response.data.token);
       setShowLogin(false);
     } else {
-      alert(response.data.message);
+      toast.error(response.data.message);
     }
   };
 

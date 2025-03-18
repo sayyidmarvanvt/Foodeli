@@ -3,6 +3,7 @@ import "./MyOrders.scss";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 import { assets } from "../../assets/assets";
+import { toast } from "react-toastify";
 
 const MyOrders = () => {
   const [data, setData] = useState([]);
@@ -18,7 +19,7 @@ const MyOrders = () => {
       setData(response.data.data);
     } catch (error) {
       console.error("Error fetching orders:", error);
-      alert("Failed to fetch orders. Please try again.");
+      toast.error("Failed to fetch orders. Please try again.");
     }
   };
 

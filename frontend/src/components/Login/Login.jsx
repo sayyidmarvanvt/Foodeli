@@ -63,13 +63,7 @@ const Login = ({ setShowLogin }) => {
         toast.error(response.data.message);
       }
     } catch (error) {
-      console.error("Google Sign-In Error:", error);
-      if (error.response && error.response.status === 429) {
-        // Rate limit exceeded
-        toast.error(error.response.data.message);
-      } else {
-        toast.error("Failed to sign in with Google.");
-      }
+      toast.error("Failed to sign in with Google.");
     }
   };
 
@@ -99,16 +93,7 @@ const Login = ({ setShowLogin }) => {
       }
     } catch (error) {
       setLoading(false);
-      console.error("Login/Registration Error:", error);
-      if (error.response && error.response.status === 429) {
-        // Rate limit exceeded
-        toast.error(error.response.data.message);
-      } else {
-        toast.error(
-          error.response?.data?.message ||
-            "An error occurred. Please try again."
-        );
-      }
+      toast.error("An error occurred. Please try again.");
     }
   };
 

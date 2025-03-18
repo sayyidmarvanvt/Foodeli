@@ -13,7 +13,6 @@ const app = express();
 const port = 4000;
 
 //middleware
-app.set("trust proxy", true);
 app.use(express.json());
 app.use(cors());
 
@@ -24,15 +23,9 @@ connectDB();
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   limit: 5,
-  message: {
-    message: "Too many requests from this IP, please try again later.",
-  },
-  handler: function (req, res /*next*/) {
-    return res.status(429).json({
-      error: "You sent too many requests. Please wait a while then try again",
-    });
-  },
   skipSuccessfulRequests: true,
+  standardHeaders: true, 
+  legacyHeaders: false,
 });
 
 //api endpoints

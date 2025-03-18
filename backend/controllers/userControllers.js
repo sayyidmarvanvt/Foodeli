@@ -5,6 +5,8 @@ import validator from "validator";
 
 //login user
 export const loginUser = async (req, res) => {
+  console.log("hi iam login user");
+  
   const { email, password } = req.body;
   try {
     const user = await userModal.findOne({ email });
@@ -72,6 +74,8 @@ export const registerUser = async (req, res) => {
 };
 
 export const googleUser = async (req, res) => {
+  console.log("hi iam google user");
+  
   try {
      const user = await userModal.findOne({ email: req.body.email });
      if (user) {

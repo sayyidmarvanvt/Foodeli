@@ -30,7 +30,10 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 app.set("trust proxy", 1);
-app.get("/ip", (request, response) => response.send(request.ip));
+app.get("/ip", (req, res) => {
+  console.log("Client IP:", req.ip); // Log the client's real IP
+  res.send(req.ip);
+});
 app.get("/x-forwarded-for", (request, response) =>
   response.send(request.headers["x-forwarded-for"])
 );

@@ -69,7 +69,7 @@ export const registerUser = async (req, res) => {
     res.json({ success: true, token });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: "Error" });
+    res.json({ success: false, message: "Register Error" });
   }
 };
 
@@ -100,7 +100,7 @@ export const googleUser = async (req, res) => {
      }
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: "Error" });
+    res.json({ success: false, message: "Google login Error" });
   }
  
 };

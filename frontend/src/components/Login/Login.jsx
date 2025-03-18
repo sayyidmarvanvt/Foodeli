@@ -37,6 +37,15 @@ const Login = ({ setShowLogin }) => {
       const user = result.user;
 
       // Send user data to your backend
+      await onGoogleSignIn(user);
+    } catch (error) {
+      console.error("Google Sign-In Error:", error);
+      toast.error("Failed to sign in with Google.");
+    }
+  };
+
+  const onGoogleSignIn = async (user) => {
+    try {
       const response = await axios.post(
         "https://foodeli-backend-55b2.onrender.com/api/user/google",
         {
@@ -55,7 +64,12 @@ const Login = ({ setShowLogin }) => {
       }
     } catch (error) {
       console.error("Google Sign-In Error:", error);
-      toast.error("Failed to sign in with Google.");
+      if (error.response && error.response.status === 429) {
+        // Rate limit exceeded
+        toast.error(error.response.data.message);
+      } else {
+        toast.error("Failed to sign in with Google.");
+      }
     }
   };
 
@@ -63,6 +77,7 @@ const Login = ({ setShowLogin }) => {
     e.preventDefault();
     if (isGoogleSignIn) return; // Skip email/password login
     setLoading(true);
+
     let url = "";
     if (currState === "Login") {
       url += "https://foodeli-backend-55b2.onrender.com/api/user/login";
@@ -70,15 +85,30 @@ const Login = ({ setShowLogin }) => {
       url += "https://foodeli-backend-55b2.onrender.com/api/user/register";
     }
 
-    const response = await axios.post(url, data);
-    setLoading(false);
-    setData({ name: "", email: "", password: "" });
-    if (response.data.success) {
-      setToken(response.data.token);
-      localStorage.setItem("token", response.data.token);
-      setShowLogin(false);
-    } else {
-      toast.error(response.data.message);
+    try {
+      const response = await axios.post(url, data);
+      setLoading(false);
+      setData({ name: "", email: "", password: "" });
+
+      if (response.data.success) {
+        setToken(response.data.token);
+        localStorage.setItem("token", response.data.token);
+        setShowLogin(false);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error("Login/Registration Error:", error);
+      if (error.response && error.response.status === 429) {
+        // Rate limit exceeded
+        toast.error(error.response.data.message);
+      } else {
+        toast.error(
+          error.response?.data?.message ||
+            "An error occurred. Please try again."
+        );
+      }
     }
   };
 

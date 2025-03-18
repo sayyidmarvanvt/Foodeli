@@ -29,7 +29,8 @@ const limiter = rateLimit({
   // validate: { xForwardedForHeader: false },
 });
 app.use(limiter);
-app.set("trust proxy", 1);
+app.set("trust proxy", true);
+
 app.get("/ip", (req, res) => {
   console.log("Client IP:", req.ip); // Log the client's real IP
   res.send(req.ip);

@@ -27,9 +27,7 @@ const Add = () => {
     formData.append("category", data.category);
     formData.append("image", image);
 
-   for (let [key, value] of formData.entries()) {
-     console.log(key, value);
-   }
+  
 
    const response = await axios.post(
      `https://foodeli-backend-55b2.onrender.com/api/food/add`,

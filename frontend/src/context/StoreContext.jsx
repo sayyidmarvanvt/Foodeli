@@ -63,7 +63,6 @@ const StoreContextProvider = (props) => {
     const response = await axios.get(
       "https://foodeli-backend-55b2.onrender.com/api/food/list"
     );
-    console.log(response.data.data);
 
     setFoodList(response.data.data);
     localStorage.setItem("foodlist", JSON.stringify(response.data.data));

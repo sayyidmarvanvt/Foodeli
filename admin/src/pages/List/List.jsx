@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const List = () => {
   const [list, setList] = useState([]);
-  console.log(list);
+
   
 
   const fetchlist = async () => {

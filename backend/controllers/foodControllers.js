@@ -4,8 +4,6 @@ import fs from "fs";
 
 // Add food item
 export const addFood = async (req, res) => {
-  console.log("started");
-
   try {
     // Upload image to Cloudinary
     const result = await cloudinary.uploader.upload(req.file.path, {

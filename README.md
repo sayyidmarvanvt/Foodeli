@@ -109,16 +109,6 @@ Foodeli is a comprehensive food ordering platform designed to provide users with
 
 ## 🛠️ Code Examples
 
-### **Search Functionality**
-```javascript
-// Backend: Search endpoint
-app.get("/api/foods/search", async (req, res) => {
-  const { query } = req.query;
-  const results = await Food.find({ name: { $regex: query, $options: "i" } });
-  res.json(results);
-});
-```
-
 ### **Socket.IO Real-Time Updates**
 ```javascript
 // Backend: Socket.IO setup

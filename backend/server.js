@@ -32,6 +32,16 @@ const limiter = rateLimit({
 app.use(limiter);
 app.set("trust proxy", 3);
 
+app.get("/ip", (req, res) => {
+  console.log("Client IP:", req.ip); // Should log the client's real IP
+  res.send(req.ip);
+});
+
+app.get("/x-forwarded-for", (req, res) => {
+  console.log("X-Forwarded-For:", req.headers["x-forwarded-for"]);
+  res.send(req.headers["x-forwarded-for"]);
+});
+
 
 //api endpoints
 app.use("/api/food", foodRouter);

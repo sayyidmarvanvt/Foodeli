@@ -5,7 +5,7 @@ import axios from "axios";
 import { assets } from "../../assets/assets";
 import { toast } from "react-toastify";
 import io from "socket.io-client";
-import { toast } from "react-toastify";
+
 
 const socket = io("https://foodeli-backend-55b2.onrender.com");
 
@@ -37,13 +37,16 @@ const MyOrders = () => {
       fetchOrders();
 
       socket.on("orderStatusUpdated", ({ orderId, status }) => {
-        console.log("Order status updated:", orderId, status);
         setData((prevData) =>
           prevData.map((order) =>
             order._id === orderId ? { ...order, status } : order
           )
         );
-       
+        if (status === "Delivered") {
+          toast.success("Your order delivered successfully.");
+        } else if (status === "Cancelled") {
+          toast.error("Your order has been cancelled.");
+        }
       });
 
       return () => {

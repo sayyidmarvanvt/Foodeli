@@ -31,7 +31,6 @@ const MyOrders = () => {
     if (token) {
       fetchOrders();
 
-      // Listen for order status updates from the server
       socket.on("orderStatusUpdated", ({ orderId, status }) => {
         setData((prevData) =>
           prevData.map((order) =>
@@ -41,10 +40,9 @@ const MyOrders = () => {
       });
 
       socket.on("orderCancelled", ({ orderId, message }) => {
-        // Display the message to the user
-       toast.error(message);
-
-        // Update the order status in the UI
+        console.log(message);
+        
+        toast.error(message); // Ensure this line is executed
         setData((prevData) =>
           prevData.map((order) =>
             order._id === orderId ? { ...order, status: "Cancelled" } : order
@@ -52,7 +50,6 @@ const MyOrders = () => {
         );
       });
 
-      // Cleanup on unmount
       return () => {
         socket.disconnect();
       };

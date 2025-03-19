@@ -9,7 +9,7 @@ import userRouter from "./routes/userRoute.js";
 import dotenv from "dotenv";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
-import recommendationRouter from "./routes/recomRoute.js.js";
+import recommendationRouter from "./routes/recomRoute.js";
 
 // App config
 const app = express();

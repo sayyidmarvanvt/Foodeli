@@ -1,18 +1,24 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import "./Navbar.scss";
 import { assets } from "../../assets/assets";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoLogInOutline } from "react-icons/io5";
 import { StoreContext } from "../../context/StoreContext";
+import SearchBar from "../Searchbar/Searchbar";
 
 const Navbar = ({ setShowLogin }) => {
   const [activeMenu, setActiveMenu] = useState("header");
   const { getTotalCartAmount, token } = useContext(StoreContext);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const navigate = useNavigate();
+  const [showSearchBar, setShowSearchBar] = useState(false);
+
+  const handleLoginClick = () => {
+    setShowLogin(true); // Correct usage of setShowLogin
+  };
+
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
   };
@@ -34,8 +40,6 @@ const Navbar = ({ setShowLogin }) => {
       window.removeEventListener("scroll", controlNavbar);
     };
   }, [lastScrollY]);
-
-
 
   return (
     <div
@@ -77,7 +81,15 @@ const Navbar = ({ setShowLogin }) => {
         </li>
       </ul>
       <div className="navbar-right">
-        <img src={assets.search_icon} alt="Search icon" />
+        {token && showSearchBar && (
+          <div className="search-bar-container">
+            <SearchBar onClose={() => setShowSearchBar(false)} />
+          </div>
+        )}
+        <button className="search-btn" onClick={() => setShowSearchBar(true)}>
+          <img src={assets.search_icon} alt="Search icon" />
+        </button>
+
         <div className="navbar-search-icon">
           <Link to="/cart">
             <img src={assets.basket_icon} alt="Cart icon" />
@@ -85,12 +97,12 @@ const Navbar = ({ setShowLogin }) => {
           <div className={getTotalCartAmount() === 0 ? "" : "dot"} />
         </div>
         {!token ? (
-          <button onClick={() => setShowLogin(true)}>
+          <button onClick={handleLoginClick}>
             <IoLogInOutline size={16} />
             Login
           </button>
         ) : (
-          <div className={`navbar-profile`} onClick={() => setShowLogin(true)}>
+          <div className={`navbar-profile`} onClick={handleLoginClick}>
             <img src={assets.profile_icon} alt="" />
           </div>
         )}

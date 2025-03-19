@@ -5,6 +5,7 @@ import axios from "axios";
 import { assets } from "../../assets/assets";
 import { toast } from "react-toastify";
 import io from "socket.io-client";
+import Recommendation from "../../components/Recommendation/Recommendation";
 
 const socket = io("https://foodeli-backend-55b2.onrender.com");
 
@@ -45,9 +46,10 @@ const MyOrders = () => {
   }, [token]);
 
   return (
+    <>
     <div className="my-orders">
       <h2>My Orders</h2>
-      <div className="container">
+      <div className="container ">
         {data.length === 0 ? ( // Check if data is empty
           <div className="no-orders">
             <p>No orders available.</p>
@@ -78,6 +80,8 @@ const MyOrders = () => {
         )}
       </div>
     </div>
+      <Recommendation />
+      </>
   );
 };
 

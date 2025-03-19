@@ -11,13 +11,20 @@ const StoreContextProvider = (props) => {
   const [total, setTotal] = useState(0); // Total amount
   const [discount, setDiscount] = useState(0); // Discount amount
   const [promoCode, setPromoCode] = useState(""); // Applied promo code
+  const [clickedSearchResult, setClickedSearchResult] = useState(null);
 
   const addToCart = async (itemId) => {
+    if (!itemId) {
+      console.error("Invalid itemId:", itemId);
+      return;
+    }
+
     if (!cartItems[itemId]) {
       setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
     } else {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
     }
+
     if (token) {
       await axios.post(
         "https://foodeli-backend-55b2.onrender.com/api/cart/add",
@@ -28,6 +35,11 @@ const StoreContextProvider = (props) => {
   };
 
   const removeFromCart = async (itemId) => {
+    if (!itemId) {
+      console.error("Invalid itemId:", itemId);
+      return;
+    }
+
     setCartItems((prev) => {
       const newCartItems = { ...prev };
       if (newCartItems[itemId] > 1) {
@@ -37,6 +49,7 @@ const StoreContextProvider = (props) => {
       }
       return newCartItems;
     });
+
     if (token) {
       await axios.post(
         "https://foodeli-backend-55b2.onrender.com/api/cart/remove",
@@ -51,10 +64,11 @@ const StoreContextProvider = (props) => {
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
         let itemInfo = foodlist.find((product) => product._id === item);
-        totalAmount += itemInfo.price * cartItems[item];
+        if (itemInfo) {
+          totalAmount += itemInfo.price * cartItems[item];
+        } 
       }
     }
-    // setTotal(totalAmount+2)
     return totalAmount;
   };
 
@@ -76,6 +90,10 @@ const StoreContextProvider = (props) => {
       { headers: { token } }
     );
     setCartItems(response.data.cartData);
+  };
+
+  const handleClickedSearchResult = (item) => {
+    setClickedSearchResult(item); // Set the clicked search result
   };
 
   useEffect(() => {
@@ -112,6 +130,8 @@ const StoreContextProvider = (props) => {
     setDiscount,
     promoCode,
     setPromoCode,
+    clickedSearchResult,
+    handleClickedSearchResult,
   };
 
   return (

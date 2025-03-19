@@ -6,15 +6,20 @@ import { StoreContext } from "../../context/StoreContext";
 const FoodItem = ({ id, name, price, image }) => {
   const [active, setActive] = useState(false);
 
-  const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
+  const { cartItems, addToCart, removeFromCart, clickedSearchResult } =
+    useContext(StoreContext);
+
+  useEffect(() => {
+    // Activate the item if it matches the clickedSearchResult
+    if (clickedSearchResult && clickedSearchResult._id === id) {
+      setActive(true); // Activate the item
+      window.scrollTo({ top: 400, behavior: "smooth" });
+    } else {
+      // Otherwise, set active based on cartItems[id]
+      setActive(cartItems[id]);
+    }
+  }, [clickedSearchResult, cartItems, id]);
   
-
-  useEffect(()=>{
-    setActive(cartItems[id])
-  },[cartItems,id])
-
-
-
   return (
     <div className={`food-item ${active ? "active" : ""}`}>
       <img

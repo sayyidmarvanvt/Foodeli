@@ -16,7 +16,7 @@ const App = () => {
   return (
     <>
       <ToastContainer
-        position="top-right"
+        position="top-center"
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
@@ -26,7 +26,7 @@ const App = () => {
         draggable
         pauseOnHover
       />
-      {showLogin ? <Login setShowLogin={setShowLogin} /> : <></>}
+      {showLogin && <Login setShowLogin={setShowLogin} /> }
       <div className="app">
         <Navbar setShowLogin={setShowLogin} />
         <Routes>

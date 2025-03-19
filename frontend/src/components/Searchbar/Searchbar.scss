@@ -1,0 +1,64 @@
+@import "../../index.scss";
+
+.navbar-search {
+  position: relative;
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: black solid 1px;
+    padding: 5px;
+    border-radius: 20px;
+   
+
+    input {
+      border: none;
+      background: none;
+      color: black;
+      outline: none;
+      padding: 5px;
+      flex: 1;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+
+    .close-button {
+      background: none;
+      border: none;
+      color: black;
+      cursor: pointer;
+      font-size: 20px;
+      padding: 0 10px;
+    }
+  }
+
+  .search-results {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+
+    .search-result-item {
+      padding: 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #f1f1f1;
+      }
+    }
+  }
+
+  @include mobile {
+    button {
+      display: block;
+    }
+  }
+}

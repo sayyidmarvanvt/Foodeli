@@ -9,6 +9,7 @@ import userRouter from "./routes/userRoute.js";
 import dotenv from "dotenv";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
+import recommendationRouter from "./routes/recomRoute.js.js";
 
 // App config
 const app = express();
@@ -39,14 +40,15 @@ const limiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
-app.use(limiter);
+
 app.set("trust proxy", 3);
 
 // API endpoints
 app.use("/api/food", foodRouter);
-app.use("/api/user", userRouter);
+app.use("/api/user", limiter, userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
+app.use("/api/recommendations", recommendationRouter);
 
 app.get("/", (req, res) => {
   res.send("Backend is running.");

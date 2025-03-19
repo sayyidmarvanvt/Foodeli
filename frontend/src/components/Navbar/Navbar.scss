@@ -120,6 +120,28 @@
       height: 17px;
     }
 
+    .search-bar-container {
+       border-radius: 20px;
+      position: fixed;
+      top: 22px; /* Position the search bar below the navbar */
+      right: 90px;
+      z-index: 1000; /* Ensure it appears above other content */
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+      @include desk {
+        right: 69px;
+      }
+
+      @include tablet {
+        right: 65px;
+      }
+      @include mobile {
+        top: 15px;
+        right: 51px;
+      }
+    }
+
     .navbar-search-icon {
       margin-top: 4px;
       position: relative;
@@ -172,6 +194,15 @@
         outline: 1px solid #eb0029;
       }
     }
+    .search-btn {
+      background-color: white;
+      padding: 0;
+      &:hover {
+        background-color: #ffffff;
+        color: #eb0029;
+        outline: 1px solid #eb0029;
+      }
+    }
 
     .navbar-profile {
       display: flex;
@@ -197,7 +228,7 @@
         outline: 1px solid #eb0029;
         list-style: none;
 
-        &:hover{
+        &:hover {
           display: flex;
         }
 

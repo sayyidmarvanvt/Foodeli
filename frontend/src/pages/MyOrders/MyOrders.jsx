@@ -4,6 +4,9 @@ import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 import { assets } from "../../assets/assets";
 import { toast } from "react-toastify";
+import io from "socket.io-client";
+
+const socket = io("https://foodeli-backend-55b2.onrender.com");
 
 const MyOrders = () => {
   const [data, setData] = useState([]);
@@ -26,6 +29,20 @@ const MyOrders = () => {
   useEffect(() => {
     if (token) {
       fetchOrders();
+
+      // Listen for order status updates from the server
+      socket.on("orderStatusUpdated", ({ orderId, status }) => {
+        setData((prevData) =>
+          prevData.map((order) =>
+            order._id === orderId ? { ...order, status } : order
+          )
+        );
+      });
+
+      // Cleanup on unmount
+      return () => {
+        socket.disconnect();
+      };
     }
   }, [token]);
 

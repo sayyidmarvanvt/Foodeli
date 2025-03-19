@@ -1,5 +1,6 @@
 import orderModal from "../models/orderModel.js";
 import userModal from "../models/userModal.js";
+import {io} from "../server.js"
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -92,12 +93,16 @@ export const listOrders = async (req, res) => {
   }
 };
 
+
 // Update order status
 export const updateStatus = async (req, res) => {
+   const { orderId, status } = req.body;
   try {
-    await orderModal.findByIdAndUpdate(req.body.orderId, {
-      status: req.body.status,
-    });
+    await orderModal.findByIdAndUpdate(orderId, { status });
+
+    // Emit the updated status to all connected clients
+    io.emit("orderStatusUpdated", { orderId, status });
+
     res.status(200).json({ success: true, message: "Status Updated" }); // 200 OK
   } catch (error) {
     console.log(error);

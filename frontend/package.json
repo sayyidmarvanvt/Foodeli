@@ -19,7 +19,8 @@
     "react-router-hash-link": "^2.4.3",
     "react-toastify": "^11.0.5",
     "sass": "^1.77.6",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

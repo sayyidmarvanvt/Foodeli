@@ -40,7 +40,11 @@ const Login = ({ setShowLogin }) => {
       await onGoogleSignIn(user);
     } catch (error) {
       console.error("Google Sign-In Error:", error);
-      toast.error("Failed to sign in with Google.");
+      if (error.response.status === 429) {
+        toast.error(error.response.data);
+      } else {
+        toast.error("Failed to sign in with Google.");
+      }
     }
   };
 
@@ -63,7 +67,11 @@ const Login = ({ setShowLogin }) => {
         toast.error(response.data.message);
       }
     } catch (error) {
-      toast.error("Failed to sign in with Google.");
+      if (error.response.status === 429) {
+        toast.error(error.response.data);
+      } else {
+        toast.error("Failed to sign in with Google.");
+      }
     }
   };
 
@@ -92,8 +100,15 @@ const Login = ({ setShowLogin }) => {
         toast.error(response.data.message);
       }
     } catch (error) {
+      console.log(error);
+
       setLoading(false);
-      toast.error("An error occurred. Please try again.");
+
+      if (error.response.status === 429) {
+        toast.error(error.response.data);
+      } else {
+        toast.error("An error occurred. Please try again.");
+      }
     }
   };
 

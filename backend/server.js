@@ -23,7 +23,8 @@ connectDB();
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   limit: 10,
-  // skipSuccessfulRequests: true,
+  message: "Too many requests , please try again after 15 minutes",
+  skipSuccessfulRequests: true,
   standardHeaders: true,
   legacyHeaders: false,
   // validate: { xForwardedForHeader: false },
@@ -31,19 +32,9 @@ const limiter = rateLimit({
 app.use(limiter);
 app.set("trust proxy", 3);
 
-// Test endpoints
-app.get("/ip", (req, res) => {
-  console.log("Client IP:", req.ip); // Should log the client's real IP
-  res.send(req.ip);
-});
 
-app.get("/x-forwarded-for", (req, res) => {
-  console.log("X-Forwarded-For:", req.headers["x-forwarded-for"]);
-  res.send(req.headers["x-forwarded-for"]);
-});
 //api endpoints
 app.use("/api/food", foodRouter);
-app.use("/api/images", express.static("uploads"));
 app.use("/api/user", userRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
@@ -55,3 +46,6 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`Server Strarted on http://localhost:${port}`);
 });
+
+
+// app.use("/api/images", express.static("uploads"));

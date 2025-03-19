@@ -22,22 +22,25 @@ dotenv.config();
 connectDB();
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  limit: 5,
+  limit: 10,
   // skipSuccessfulRequests: true,
   standardHeaders: true,
   legacyHeaders: false,
   // validate: { xForwardedForHeader: false },
 });
 app.use(limiter);
-app.set("trust proxy", true);
+app.set("trust proxy", 3);
 
+// Test endpoints
 app.get("/ip", (req, res) => {
-  console.log("Client IP:", req.ip); // Log the client's real IP
+  console.log("Client IP:", req.ip); // Should log the client's real IP
   res.send(req.ip);
 });
-app.get("/x-forwarded-for", (request, response) =>
-  response.send(request.headers["x-forwarded-for"])
-);
+
+app.get("/x-forwarded-for", (req, res) => {
+  console.log("X-Forwarded-For:", req.headers["x-forwarded-for"]);
+  res.send(req.headers["x-forwarded-for"]);
+});
 //api endpoints
 app.use("/api/food", foodRouter);
 app.use("/api/images", express.static("uploads"));

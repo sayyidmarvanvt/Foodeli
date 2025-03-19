@@ -5,6 +5,7 @@ import axios from "axios";
 import { assets } from "../../assets/assets";
 import { toast } from "react-toastify";
 import io from "socket.io-client";
+import { toast } from "react-toastify";
 
 const socket = io("https://foodeli-backend-55b2.onrender.com");
 
@@ -35,6 +36,18 @@ const MyOrders = () => {
         setData((prevData) =>
           prevData.map((order) =>
             order._id === orderId ? { ...order, status } : order
+          )
+        );
+      });
+
+      socket.on("orderCancelled", ({ orderId, message }) => {
+        // Display the message to the user
+       toast.error(message);
+
+        // Update the order status in the UI
+        setData((prevData) =>
+          prevData.map((order) =>
+            order._id === orderId ? { ...order, status: "Cancelled" } : order
           )
         );
       });
@@ -72,6 +85,11 @@ const MyOrders = () => {
                 <p>Items: {order.items.length}</p>
                 <p>
                   <span>&#x25Cf;</span> <b>{order.status}</b>
+                  {order.status === "Cancelled" && (
+                    <span style={{ color: "red", marginLeft: "10px" }}>
+                      (Cancelled)
+                    </span>
+                  )}
                 </p>
                 <button onClick={fetchOrders}>Track Order</button>
               </div>

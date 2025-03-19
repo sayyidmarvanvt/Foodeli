@@ -100,6 +100,18 @@ export const updateStatus = async (req, res) => {
   try {
     await orderModal.findByIdAndUpdate(orderId, { status });
 
+    // Additional logic for cancellations
+    if (status === "Cancelled") {
+      // Send a notification to the user
+      io.emit("orderCancelled", {
+        orderId,
+        message: "Your order has been cancelled.",
+      });
+
+      // Trigger a refund (if applicable)
+      // await refundUser(orderId);
+    }
+
     // Emit the updated status to all connected clients
     io.emit("orderStatusUpdated", { orderId, status });
 

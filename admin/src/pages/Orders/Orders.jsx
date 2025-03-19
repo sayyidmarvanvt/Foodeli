@@ -71,6 +71,7 @@ const Orders = () => {
               <option value="Food Processing">Food Processing</option>
               <option value="Out for Delivery">Out for Delivery</option>
               <option value="Delivered">Delivered</option>
+              <option value="Cancelled">Cancelled</option>
             </select>
           </div>
         ))}

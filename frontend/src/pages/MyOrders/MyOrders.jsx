@@ -14,6 +14,11 @@ const MyOrders = () => {
   const { token } = useContext(StoreContext);
 
   const fetchOrders = async () => {
+      if (data.order.status === "Delivered") {
+        toast.success("Your order delivered successfully.");
+      } else if (data.order.status === "Cancelled") {
+        toast.error("Your order has been cancelled.");
+      }
     try {
       const response = await axios.post(
         "https://foodeli-backend-55b2.onrender.com/api/order/userorders",
@@ -32,16 +37,13 @@ const MyOrders = () => {
       fetchOrders();
 
       socket.on("orderStatusUpdated", ({ orderId, status }) => {
+        console.log("Order status updated:", orderId, status);
         setData((prevData) =>
           prevData.map((order) =>
             order._id === orderId ? { ...order, status } : order
           )
         );
-        if (status === "Delivered") {
-          toast.success("Your order delivered successfully.");
-        } else if (status === "Cancelled") {
-          toast.error("Your order has been cancelled.");
-        }
+       
       });
 
       return () => {

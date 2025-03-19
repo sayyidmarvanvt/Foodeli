@@ -6,7 +6,6 @@ import { assets } from "../../assets/assets";
 import { toast } from "react-toastify";
 import io from "socket.io-client";
 
-
 const socket = io("https://foodeli-backend-55b2.onrender.com");
 
 const MyOrders = () => {
@@ -14,11 +13,6 @@ const MyOrders = () => {
   const { token } = useContext(StoreContext);
 
   const fetchOrders = async () => {
-      if (data.order.status === "Delivered") {
-        toast.success("Your order delivered successfully.");
-      } else if (data.order.status === "Cancelled") {
-        toast.error("Your order has been cancelled.");
-      }
     try {
       const response = await axios.post(
         "https://foodeli-backend-55b2.onrender.com/api/order/userorders",
@@ -42,11 +36,6 @@ const MyOrders = () => {
             order._id === orderId ? { ...order, status } : order
           )
         );
-        if (status === "Delivered") {
-          toast.success("Your order delivered successfully.");
-        } else if (status === "Cancelled") {
-          toast.error("Your order has been cancelled.");
-        }
       });
 
       return () => {

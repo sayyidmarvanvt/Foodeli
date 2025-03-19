@@ -22,7 +22,7 @@ dotenv.config();
 connectDB();
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  limit: 10,
+  limit: 5,
   message: "Too many requests , please try again after 15 minutes",
   skipSuccessfulRequests: true,
   standardHeaders: true,
@@ -31,16 +31,6 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 app.set("trust proxy", 3);
-
-app.get("/ip", (req, res) => {
-  console.log("Client IP:", req.ip); // Should log the client's real IP
-  res.send(req.ip);
-});
-
-app.get("/x-forwarded-for", (req, res) => {
-  console.log("X-Forwarded-For:", req.headers["x-forwarded-for"]);
-  res.send(req.headers["x-forwarded-for"]);
-});
 
 
 //api endpoints

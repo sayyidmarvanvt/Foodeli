@@ -41,7 +41,7 @@
       font-size: 1.5vw;
 
       @include mobile {
-        font-size: 10px;
+        font-size: 15px;
       }
     }
     h1 {
@@ -49,15 +49,15 @@
       font-size: 2.5vw;
 
       @include mobile {
-        font-size: 15px;
+        font-size: 20px;
       }
     }
     p {
-      font-size: 1.4vw;
+      font-size: 1.5vw;
       max-width: 80%;
 
       @include mobile {
-        font-size: 8px;
+        font-size: 12px;
         // display: none;
       }
     }

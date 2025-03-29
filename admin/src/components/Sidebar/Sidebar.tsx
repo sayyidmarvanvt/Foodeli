@@ -1,4 +1,3 @@
-import React from 'react'
 import "./Sidebar.scss"
 import { assets } from '../../assets/assets'
 import { NavLink } from 'react-router-dom'

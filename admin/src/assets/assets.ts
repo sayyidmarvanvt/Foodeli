@@ -5,7 +5,16 @@ import profile_image from './profile_image.png'
 import upload_area from './upload_area.png'
 import parcel_icon from './parcel_icon.png'
 
-export const assets ={
+interface Assets {
+  logo: string;
+  add_icon: string;
+  order_icon: string;
+  profile_image: string;
+  upload_area: string;
+  parcel_icon: string;
+}
+
+export const assets:Assets ={
     logo,
     add_icon,
     order_icon,

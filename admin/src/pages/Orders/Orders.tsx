@@ -1,14 +1,42 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import "./Orders.scss";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { assets } from "../../assets/assets";
 
-const Orders = () => {
-  const [orders, setOrders] = useState([]);
+interface Item {
+  name: string;
+  quantity: number;
+}
+
+interface Address {
+  firstName: string;
+  lastName: string;
+  street: string;
+  city: string;
+  state: string;
+  country: string;
+  zipcode: string;
+  phone: string;
+}
+
+interface Order {
+  _id: number;
+  userId: string;
+  items: Item[];
+  amount: number;
+  address: Address;
+  status: "Food Processing" | "Out for Delivery" | "Delivered" | "Cancelled";
+}
+
+
+const Orders: FC = () => {
+  const [orders, setOrders] = useState<Order[]>([]);
 
   const fetchAllOrders = async () => {
-    const response = await axios.get("https://foodeli-backend-55b2.onrender.com/api/order/list");
+    const response = await axios.get(
+      "https://foodeli-backend-55b2.onrender.com/api/order/list"
+    );
     if (response.data.success) {
       setOrders(response.data.data);
     } else {
@@ -16,13 +44,19 @@ const Orders = () => {
     }
   };
 
-  const statusHandler = async (e, orderId) => {
-    const response = await axios.post("https://foodeli-backend-55b2.onrender.com/api/order/status", {
-      orderId,
-      status: e.target.value,
-    });
-    if(response.data.success){
-      await fetchAllOrders()
+  const statusHandler = async (
+    e: React.ChangeEvent<HTMLSelectElement>,
+    orderId: number
+  ) => {
+    const response = await axios.post(
+      "https://foodeli-backend-55b2.onrender.com/api/order/status",
+      {
+        orderId,
+        status: e.target.value,
+      }
+    );
+    if (response.data.success) {
+      await fetchAllOrders();
     }
   };
   useEffect(() => {

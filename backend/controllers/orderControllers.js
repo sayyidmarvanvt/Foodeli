@@ -81,34 +81,48 @@ export const verifyOrder = async (req, res) => {
           .json({ success: false, message: "Order not found" });
       }
 
-      console.log("updated", updatedOrder);
-
       // 2. Send email to user
       const mailOptions = {
         from: '"Foodeli Demo" <foodeli.demo@gmail.com>',
         to: updatedOrder.address.email, // Use email from address
         subject: `🍔 Order Confirmed (#${orderId})`,
         html: `
-    <h2>Hi ${updatedOrder.address.firstName} ${
+  <h2>Hi ${updatedOrder.address.firstName} ${
           updatedOrder.address.lastName
         }, your order is confirmed!</h2>
-    <p><strong>Amount Paid:</strong> ₹${updatedOrder.amount}</p>
-    <p><strong>Delivery Address:</strong> ${updatedOrder.address.street}, ${
+  <p><strong>Amount Paid:</strong> $${updatedOrder.amount} (≈ ₹${(
+          updatedOrder.amount * 80
+        ).toFixed(2)})</p>
+  <p><strong>Delivery Address:</strong> ${updatedOrder.address.street}, ${
           updatedOrder.address.city
         }</p>
-    <h3>Items Ordered:</h3>
-    <ul>
-      ${updatedOrder.items
-        .map(
-          (item) => `
-        <li>${item.name} × ${item.quantity}</li>
-      `
-        )
-        .join("")}
-    </ul>
-    <p><em>Note: This is a demo project. No real food will be delivered.</em></p>
-    <p>Track your order status <a href="${fronted_url}/orders">here</a>.</p>
-  `,
+  <h3>Items Ordered:</h3>
+  <ul style="list-style: none; padding: 0;">
+    ${updatedOrder.items
+      .map(
+        (item) => `
+      <li style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+        <img 
+          src="${item.image}" 
+          alt="${item.name}" 
+          style="width: 100px; height: auto; border-radius: 8px;"
+        >
+        <div style="margin-top: 5px;">
+          <strong>${item.name}</strong> × ${item.quantity}<br>
+          Price: $${item.price * item.quantity} (≈ ₹${(
+          item.price *
+          item.quantity *
+          80
+        ).toFixed(2)})
+        </div>
+      </li>
+    `
+      )
+      .join("")}
+  </ul>
+  <p><em>Note: This is a demo project. No real food will be delivered.</em></p>
+  <p>Track your order status <a href="${fronted_url}/myorders" style="color: #0066cc;">here</a>.</p>
+`,
       };
 
       await transporter.sendMail(mailOptions);

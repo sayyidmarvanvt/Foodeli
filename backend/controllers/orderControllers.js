@@ -1,13 +1,14 @@
 import orderModal from "../models/orderModel.js";
 import userModal from "../models/userModal.js";
+import nodemailer from "nodemailer";
 import {io} from "../server.js"
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+const fronted_url = "https://foodeli-frontend.onrender.com";
 // Placing order
 export const placeOrder = async (req, res) => {
-  const fronted_url = "https://foodeli-frontend.onrender.com";
   try {
     const newOrder = new orderModal({
       userId: req.body.userId,
@@ -54,20 +55,74 @@ export const placeOrder = async (req, res) => {
   }
 };
 
-// Verify order
+// Verify order and send Mail
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  auth: {
+    user: process.env.EMAIL_USER, // Store in .env
+    pass: process.env.EMAIL_PASSWORD, // Use "App Password" for Gmail
+  },
+});
+
 export const verifyOrder = async (req, res) => {
   const { orderId, success } = req.body;
   try {
-    if (success == "true") {
-      await orderModal.findByIdAndUpdate(orderId, { payment: true });
-      res.status(200).json({ success: true, message: "Paid" }); // 200 OK
+    if (success === "true") {
+      // 1. Update order status and fetch user email
+      const updatedOrder = await orderModal
+        .findByIdAndUpdate(
+          orderId,
+          { payment: true, status: "Order Placed" }, // Update status
+          { new: true } // Return the updated order
+        )
+        .populate("userId", "email name"); // Populate user email/name
+
+      if (!updatedOrder) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Order not found" });
+      }
+
+      console.log("updated",updatedOrder);
+      
+
+      // 2. Send email to user
+      const mailOptions = {
+        from: '"Foodeli Demo" <foodeli.demo@gmail.com>',
+        to: updatedOrder.userId.email, 
+        subject: `🍔 Order Confirmed (#${orderId})`,
+        html: `
+          <h2>Hi ${updatedOrder.userId.name}, your order is confirmed!</h2>
+          <p><strong>Amount Paid:</strong> ₹${updatedOrder.amount}</p>
+          <p><strong>Delivery Address:</strong> ${
+            updatedOrder.address.street
+          }, ${updatedOrder.address.city}</p>
+          <h3>Items Ordered:</h3>
+          <ul>
+            ${updatedOrder.items
+              .map(
+                (item) => `
+              <li>${item.name} × ${item.quantity}</li>
+            `
+              )
+              .join("")}
+          </ul>
+          <p><em>Note: This is a demo project. No real food will be delivered.</em></p>
+          <p>Track your order status <a href="${fronted_url}/orders">here</a>.</p>
+        `,
+      };
+
+      await transporter.sendMail(mailOptions);
+
+      res.status(200).json({ success: true, message: "Payment successful" });
     } else {
+      // Payment failed: Delete the order
       await orderModal.findByIdAndDelete(orderId);
-      res.status(200).json({ success: false, message: "Not Paid" }); // 200 OK
+      res.status(200).json({ success: false, message: "Payment failed" });
     }
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: "Error" }); // 500 Internal Server Error
+    console.error("Error in verifyOrder:", error);
+    res.status(500).json({ success: false, message: "Server error" });
   }
 };
 

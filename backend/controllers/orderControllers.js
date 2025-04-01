@@ -1,7 +1,7 @@
 import orderModal from "../models/orderModel.js";
 import userModal from "../models/userModal.js";
 import nodemailer from "nodemailer";
-import {io} from "../server.js"
+import { io } from "../server.js";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -69,13 +69,11 @@ export const verifyOrder = async (req, res) => {
   try {
     if (success === "true") {
       // 1. Update order status and fetch user email
-      const updatedOrder = await orderModal
-        .findByIdAndUpdate(
-          orderId,
-          { payment: true, status: "Order Placed" }, // Update status
-          { new: true } // Return the updated order
-        )
-        .populate("userId", "email name"); // Populate user email/name
+      const updatedOrder = await orderModal.findByIdAndUpdate(
+        orderId,
+        { payment: true, status: "Order Placed" }, // Update status
+        { new: true } // Return the updated order
+      );
 
       if (!updatedOrder) {
         return res
@@ -83,33 +81,34 @@ export const verifyOrder = async (req, res) => {
           .json({ success: false, message: "Order not found" });
       }
 
-      console.log("updated",updatedOrder);
-      
+      console.log("updated", updatedOrder);
 
       // 2. Send email to user
       const mailOptions = {
         from: '"Foodeli Demo" <foodeli.demo@gmail.com>',
-        to: updatedOrder.userId.email, 
+        to: updatedOrder.address.email, // Use email from address
         subject: `🍔 Order Confirmed (#${orderId})`,
         html: `
-          <h2>Hi ${updatedOrder.userId.name}, your order is confirmed!</h2>
-          <p><strong>Amount Paid:</strong> ₹${updatedOrder.amount}</p>
-          <p><strong>Delivery Address:</strong> ${
-            updatedOrder.address.street
-          }, ${updatedOrder.address.city}</p>
-          <h3>Items Ordered:</h3>
-          <ul>
-            ${updatedOrder.items
-              .map(
-                (item) => `
-              <li>${item.name} × ${item.quantity}</li>
-            `
-              )
-              .join("")}
-          </ul>
-          <p><em>Note: This is a demo project. No real food will be delivered.</em></p>
-          <p>Track your order status <a href="${fronted_url}/orders">here</a>.</p>
-        `,
+    <h2>Hi ${updatedOrder.address.firstName} ${
+          updatedOrder.address.lastName
+        }, your order is confirmed!</h2>
+    <p><strong>Amount Paid:</strong> ₹${updatedOrder.amount}</p>
+    <p><strong>Delivery Address:</strong> ${updatedOrder.address.street}, ${
+          updatedOrder.address.city
+        }</p>
+    <h3>Items Ordered:</h3>
+    <ul>
+      ${updatedOrder.items
+        .map(
+          (item) => `
+        <li>${item.name} × ${item.quantity}</li>
+      `
+        )
+        .join("")}
+    </ul>
+    <p><em>Note: This is a demo project. No real food will be delivered.</em></p>
+    <p>Track your order status <a href="${fronted_url}/orders">here</a>.</p>
+  `,
       };
 
       await transporter.sendMail(mailOptions);
@@ -148,10 +147,9 @@ export const listOrders = async (req, res) => {
   }
 };
 
-
 // Update order status
 export const updateStatus = async (req, res) => {
-   const { orderId, status } = req.body;
+  const { orderId, status } = req.body;
   try {
     await orderModal.findByIdAndUpdate(orderId, { status });
 

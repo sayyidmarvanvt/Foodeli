@@ -19,6 +19,7 @@ const Login = ({ setShowLogin }) => {
   });
   const [isGoogleSignIn, setIsGoogleSignIn] = useState(false);
   const [loading, setLoading] = useState(false);
+  let name;
 
   const onChangeHandler = (e) => {
     const name = e.target.name;
@@ -35,7 +36,7 @@ const Login = ({ setShowLogin }) => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-
+      name = user.displayName;
       // Send user data to your backend
       await onGoogleSignIn(user);
     } catch (error) {
@@ -196,11 +197,11 @@ const Login = ({ setShowLogin }) => {
         ) : (
           <div className="profile-menu">
             <div className="login-title">
-              <h2>Account</h2>
+              <h2>Hello , Foodie</h2>
               <img
                 onClick={() => setShowLogin(false)}
                 src={assets.cross_icon}
-                alt=""
+                alt="close icon"
               />
             </div>
             <br />

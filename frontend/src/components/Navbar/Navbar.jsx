@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import "./Navbar.scss";
 import { assets } from "../../assets/assets";
@@ -14,6 +14,10 @@ const Navbar = ({ setShowLogin }) => {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const location = useLocation();
+
+  // Only render the search bar if we're on the home page (`/`)
+  const isHomePage = location.pathname === "/";
 
   const handleLoginClick = () => {
     setShowLogin(true); // Correct usage of setShowLogin
@@ -81,7 +85,7 @@ const Navbar = ({ setShowLogin }) => {
         </li>
       </ul>
       <div className="navbar-right">
-        {token && showSearchBar && (
+        {isHomePage && showSearchBar && (
           <div className="search-bar-container">
             <SearchBar onClose={() => setShowSearchBar(false)} />
           </div>

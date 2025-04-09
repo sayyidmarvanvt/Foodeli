@@ -121,7 +121,7 @@
     }
 
     .search-bar-container {
-       border-radius: 20px;
+      border-radius: 20px;
       position: fixed;
       top: 22px; /* Position the search bar below the navbar */
       right: 90px;
@@ -147,11 +147,11 @@
       position: relative;
       display: flex;
       align-items: center;
+
       img {
         width: 19px;
         height: 19px;
       }
-
       .dot {
         position: absolute;
         min-width: 10px;
@@ -195,24 +195,39 @@
       }
     }
     .search-btn {
+      margin-bottom: 0.5px;
       background-color: white;
       padding: 0;
+
+      img {
+        width: 17px;
+        height: 17px;
+      }
       &:hover {
         background-color: #ffffff;
         color: #eb0029;
         outline: 1px solid #eb0029;
+        border-radius: 50%;
       }
     }
 
     .navbar-profile {
+      // margin-top: 1px;
       display: flex;
       align-items: center;
       position: relative;
       cursor: pointer;
 
       img {
-        width: 20px;
-        height: 20px;
+        width: 19px;
+        height: 19px;
+      }
+
+      &:hover {
+        background-color: #ffffff;
+        color: #eb0029;
+        outline: 1px solid #eb0029;
+        border-radius: 50%;
       }
 
       .nav-profile-dropdown {

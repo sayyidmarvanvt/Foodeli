@@ -2,7 +2,7 @@
 
 .navbar-search {
   position: relative;
-  
+
   .search-bar {
     display: flex;
     align-items: center;
@@ -10,7 +10,6 @@
     border: black solid 1px;
     padding: 5px;
     border-radius: 20px;
-   
 
     input {
       border: none;
@@ -61,4 +60,14 @@
       display: block;
     }
   }
+}
+.search-result-item {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.category-span {
+  font-size: 0.8em; /* Smaller text */
+  font-style: italic; /* Italic text */
+  color: gray; /* Gray color */
 }

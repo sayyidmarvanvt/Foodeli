@@ -28,7 +28,7 @@ const SearchBar = ({ onClose }) => {
     }
   };
 
-//   // Handle Enter key press to close the search bar
+  //   // Handle Enter key press to close the search bar
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       onClose();
@@ -37,9 +37,9 @@ const SearchBar = ({ onClose }) => {
 
   // Handle single-click on a search result
   const handleResultClick = (item) => {
-   handleClickedSearchResult(item); 
-//    setSearchQuery(item.name); 
-   onClose(false)// Set the search query to the clicked item
+    handleClickedSearchResult(item);
+    //    setSearchQuery(item.name);
+    onClose(false); // Set the search query to the clicked item
   };
 
   return (
@@ -63,9 +63,10 @@ const SearchBar = ({ onClose }) => {
             <div
               key={index}
               className="search-result-item"
-              onClick={() => handleResultClick(result)} 
+              onClick={() => handleResultClick(result)}
             >
-              {result.name} {/* Display the food item name */}
+              {result.name}
+              <span className="category-span"> in {result.category} </span>
             </div>
           ))}
         </div>

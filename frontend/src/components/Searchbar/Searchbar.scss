@@ -63,11 +63,16 @@
 }
 .search-result-item {
   font-size: 16px;
+    // font-style: italic; /* Italic text */
   margin: 8px 0;
 }
 
+.in-span{
+  font-size: 0.7em;
+}
+
 .category-span {
-  font-size: 0.8em; /* Smaller text */
-  font-style: italic; /* Italic text */
+  font-size: 0.7em; /* Smaller text */
+font-style: italic;
   color: gray; /* Gray color */
 }

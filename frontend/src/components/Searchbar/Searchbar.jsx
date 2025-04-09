@@ -66,7 +66,9 @@ const SearchBar = ({ onClose }) => {
               onClick={() => handleResultClick(result)}
             >
               {result.name}
-              <span className="category-span"> in {result.category} </span>
+              <span className="category-span">
+                &nbsp;&nbsp; {result.category}
+              </span>
             </div>
           ))}
         </div>

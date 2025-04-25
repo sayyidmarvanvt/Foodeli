@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import "./Cart.scss";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
@@ -27,7 +27,7 @@ const Cart = () => {
       FREESHIP: 2, // Free delivery (subtract delivery fee)
     };
 
-  if (!promoCode.trim() || promoCode === "") {
+    if (!promoCode.trim() || promoCode === "") {
       // If promo code is empty, reset discount and clear states
       setDiscount(0);
       setIsPromoApplied(false);
@@ -64,11 +64,10 @@ const Cart = () => {
       setErrorMessage("Invalid promo code.");
     }
   };
-  
+
   const subtotal = getTotalCartAmount();
   const deliveryFee = subtotal === 0 ? 0 : 2;
   const calculatedTotal = subtotal + deliveryFee - discount;
-
 
   return (
     <div className="cart">

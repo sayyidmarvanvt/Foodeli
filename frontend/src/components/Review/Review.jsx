@@ -1,11 +1,10 @@
-import React from "react";
 import "./Review.scss";
 import { assets } from "../../assets/assets";
 
 const Review = () => {
   return (
     <div className="review">
-        <img src="./review.png" alt="" className="review-img" />
+        <img src={assets.review} alt="review image" className="review-img" />
       <div className="review-content">
         <h2>WHAT THEY SAY</h2>
         <h1>What Our Customer Say About Us</h1>

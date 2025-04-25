@@ -1,12 +1,12 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import "./Navbar.scss";
 import { assets } from "../../assets/assets";
-import { IoIosArrowDown } from "react-icons/io";
 import { IoLogInOutline } from "react-icons/io5";
 import { StoreContext } from "../../context/StoreContext";
 import SearchBar from "../Searchbar/Searchbar";
+import PropTypes from "prop-types";
 
 const Navbar = ({ setShowLogin }) => {
   const [activeMenu, setActiveMenu] = useState("header");
@@ -16,34 +16,34 @@ const Navbar = ({ setShowLogin }) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   const location = useLocation();
 
-  // Only render the search bar if we're on the home page (`/`)
   const isHomePage = location.pathname === "/";
 
   const handleLoginClick = () => {
-    setShowLogin(true); // Correct usage of setShowLogin
+    setShowLogin(true);
   };
 
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
   };
 
-  const controlNavbar = () => {
+  const controlNavbar = useCallback(() => {
     if (window.scrollY > lastScrollY) {
       // if scrolling down
       setShowNavbar(false);
+      setShowSearchBar(false);
     } else {
       // if scrolling up
       setShowNavbar(true);
     }
     setLastScrollY(window.scrollY);
-  };
+  }, [lastScrollY]);
 
   useEffect(() => {
     window.addEventListener("scroll", controlNavbar);
     return () => {
       window.removeEventListener("scroll", controlNavbar);
     };
-  }, [lastScrollY]);
+  }, [controlNavbar]);
 
   return (
     <div
@@ -62,7 +62,6 @@ const Navbar = ({ setShowLogin }) => {
         >
           <HashLink smooth to="/#menu">
             Menu
-            <IoIosArrowDown />
           </HashLink>
         </li>
         <li
@@ -71,7 +70,6 @@ const Navbar = ({ setShowLogin }) => {
         >
           <HashLink smooth to="/#services">
             Services
-            <IoIosArrowDown />
           </HashLink>
         </li>
         <li
@@ -80,23 +78,34 @@ const Navbar = ({ setShowLogin }) => {
         >
           <HashLink smooth to="/#app-download">
             App
-            {/* <IoIosArrowDown /> */}
           </HashLink>
         </li>
       </ul>
       <div className="navbar-right">
         {isHomePage && showSearchBar && (
-          <div className="search-bar-container">
+          <div
+            className={`search-bar-container ${
+              showNavbar ? "visible" : "hidden"
+            }`}
+          >
             <SearchBar onClose={() => setShowSearchBar(false)} />
           </div>
         )}
-        <button className="search-btn" onClick={() => setShowSearchBar(true)}>
-          <img src={assets.search_icon} alt="Search icon" />
-        </button>
 
-        <div className="navbar-search-icon">
+        <img
+          src={assets.search_icon}
+          alt="Search icon"
+          className="search-btn"
+          onClick={() => setShowSearchBar(true)}
+        />
+
+        <div className="navbar-cart-icon">
           <Link to="/cart">
-            <img src={assets.basket_icon} alt="Cart icon" />
+            <img
+              src={assets.basket_icon}
+              className="search-btn"
+              alt="Cart icon"
+            />
           </Link>
           <div className={getTotalCartAmount() === 0 ? "" : "dot"} />
         </div>
@@ -107,12 +116,17 @@ const Navbar = ({ setShowLogin }) => {
           </button>
         ) : (
           <div className={`navbar-profile`} onClick={handleLoginClick}>
-            <img src={assets.profile_icon} alt="" />
+            <img src={assets.profile_icon} alt="Profile icon" />
           </div>
         )}
       </div>
     </div>
   );
+};
+
+// Add prop validation
+Navbar.propTypes = {
+  setShowLogin: PropTypes.func.isRequired,
 };
 
 export default Navbar;

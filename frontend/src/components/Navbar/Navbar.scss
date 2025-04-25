@@ -57,7 +57,7 @@
   .navbar-menu {
     display: flex;
     list-style: none;
-    gap: 20px;
+    gap: 30px;
     color: #333333;
     font-size: 18px;
 
@@ -108,50 +108,53 @@
     align-items: center;
     gap: 20px;
 
+    img {
+      width: 22px;
+      height: 22px;
+    }
     @include desktop {
       gap: 30px;
     }
     @include mobile {
       gap: 10px;
-    }
 
-    img {
-      width: 17px;
-      height: 17px;
+      img {
+        width: 20px;
+        height: 20px;
+      }
     }
 
     .search-bar-container {
       border-radius: 20px;
       position: fixed;
-      top: 22px; /* Position the search bar below the navbar */
-      right: 90px;
+      // top: 22px; /* Position the search bar below the navbar */
+      right: 178px;
       z-index: 1000; /* Ensure it appears above other content */
       background-color: white;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
-      @include desk {
-        right: 69px;
+      &.hidden {
+        display: none;
+      }
+
+      &.visible {
+        display: block;
       }
 
       @include tablet {
-        right: 65px;
+        right: 146px;
       }
       @include mobile {
-        top: 15px;
-        right: 51px;
+        right: 94px;
       }
     }
 
-    .navbar-search-icon {
+    .navbar-cart-icon {
       margin-top: 4px;
       position: relative;
       display: flex;
       align-items: center;
 
-      img {
-        width: 19px;
-        height: 19px;
-      }
       .dot {
         position: absolute;
         min-width: 10px;
@@ -197,12 +200,8 @@
     .search-btn {
       margin-bottom: 0.5px;
       background-color: white;
-      padding: 0;
+      padding: 2px;
 
-      img {
-        width: 19px;
-        height: 19px;
-      }
       &:hover {
         background-color: #ffffff;
         color: #eb0029;
@@ -217,11 +216,6 @@
       align-items: center;
       position: relative;
       cursor: pointer;
-
-      img {
-        width: 19px;
-        height: 19px;
-      }
 
       &:hover {
         background-color: #ffffff;

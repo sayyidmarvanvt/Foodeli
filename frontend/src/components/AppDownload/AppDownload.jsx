@@ -1,11 +1,9 @@
-import React from "react";
 import "./AppDownload.scss";
-
-
+import { assets } from "../../assets/assets";
 const AppDownload = () => {
   return (
     <div className="app-download" id="app-download">
-      <img src="./download.png" alt="" className="download-img" />
+      <img src={assets.app_download} alt="app download" className="download-img" />
       <div className="app-download-content">
         <h2>DOWNLOAD APP</h2>
         <h1>Get Started With Fudo Today!</h1>

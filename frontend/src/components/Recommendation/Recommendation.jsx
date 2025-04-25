@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { StoreContext } from "../../context/StoreContext";
 import { toast } from "react-toastify";
-import { assets } from "../../assets/assets.js"; // Import assets if needed
-import "./Recommendation.scss"; // Import the CSS file
+import { assets } from "../../assets/assets.js";
+import "./Recommendation.scss";
 
 const Recommendation = () => {
   const { token, foodlist, cartItems, addToCart, removeFromCart } =
@@ -12,35 +12,35 @@ const Recommendation = () => {
   const [activeItem, setActiveItem] = useState(null);
 
   // Fetch user order history
-  const fetchUserHistory = async () => {
+  const fetchUserHistory = useCallback(async () => {
     if (!token) return;
     try {
       const response = await axios.post(
         "https://foodeli-backend-55b2.onrender.com/api/order/userorders",
         {},
-        { headers: { token } } // Pass the token in headers
+        { headers: { token } }
       );
-      return response.data.data; // Return user's order history
+      return response.data.data;
     } catch (error) {
       console.error("Error fetching user history:", error);
     }
-  };
+  }, [token]);
 
   // Generate random recommendations
-  const getRandomRecommendations = (foodlist, count) => {
+  const getRandomRecommendations = useCallback((foodlist, count) => {
     return foodlist
-      .sort(() => 0.5 - Math.random()) // Shuffle the array
-      .slice(0, count) // Pick the first `count` items
+      .sort(() => 0.5 - Math.random())
+      .slice(0, count)
       .map((item) => ({
-        id: item._id, // Include the ID
-        name: item.name, // Include the name
-        price: item.price, // Include the price
-        image: item.image, // Include the image
+        id: item._id,
+        name: item.name,
+        price: item.price,
+        image: item.image,
       }));
-  };
+  }, []);
 
   // Determine the number of recommendations based on screen size
-  const getRecommendationCount = () => {
+  const getRecommendationCount = useCallback(() => {
     const screenWidth = window.innerWidth;
 
     if (screenWidth >= 1024) {
@@ -50,23 +50,19 @@ const Recommendation = () => {
     } else {
       return 2; // Mobile
     }
-  };
+  }, []);
 
-  const getRecommendations = async () => {
+  const getRecommendations = useCallback(async () => {
     try {
-      // Fetch user order history
       const userHistory = await fetchUserHistory();
 
-      // Check if data is valid
       if (!userHistory || userHistory.length === 0) {
         console.log("No data to send to the backend.");
         return;
       }
 
-      // Determine the number of recommendations based on screen size
       const recommendationCount = getRecommendationCount();
 
-      // Use random recommendations as a fallback
       const randomRecommendations = getRandomRecommendations(
         foodlist,
         recommendationCount
@@ -75,16 +71,13 @@ const Recommendation = () => {
     } catch (error) {
       console.error("Error fetching recommendations:", error);
       toast.error("Error fetching recommendations");
-
-      // Use random recommendations if there's an error
-      const recommendationCount = getRecommendationCount();
-      const randomRecommendations = getRandomRecommendations(
-        foodlist,
-        recommendationCount
-      );
-      setRecommendations(randomRecommendations);
     }
-  };
+  }, [
+    fetchUserHistory,
+    foodlist,
+    getRecommendationCount,
+    getRandomRecommendations,
+  ]);
 
   useEffect(() => {
     getRecommendations();
@@ -100,7 +93,7 @@ const Recommendation = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [foodlist]);
+  }, [getRecommendations]);
 
   return (
     <div className="my-orders">
@@ -129,7 +122,7 @@ const Recommendation = () => {
                       <img
                         className="add"
                         onClick={(e) => {
-                          e.stopPropagation(); // Prevent li onClick from firing
+                          e.stopPropagation();
                           addToCart(item.id);
                         }}
                         src={assets.add_icon_white}
@@ -139,7 +132,7 @@ const Recommendation = () => {
                       <div className="recom-item-counter">
                         <button
                           onClick={(e) => {
-                            e.stopPropagation(); // Prevent li onClick from firing
+                            e.stopPropagation();
                             removeFromCart(item.id);
                           }}
                         >
@@ -148,7 +141,7 @@ const Recommendation = () => {
                         <p>{cartItems[item.id]}</p>
                         <button
                           onClick={(e) => {
-                            e.stopPropagation(); // Prevent li onClick from firing
+                            e.stopPropagation();
                             addToCart(item.id);
                           }}
                         >

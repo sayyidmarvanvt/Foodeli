@@ -1,12 +1,13 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import "./Login.scss";
-import { assets } from "../../assets/assets";
 import axios from "axios";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from "../../../firebase.js";
 import { toast } from "react-toastify";
+import PropTypes from "prop-types";
+import { assets } from "../../assets/assets"; // Added missing import
 
 const Login = ({ setShowLogin }) => {
   const [currState, setCurrState] = useState("Login");
@@ -19,7 +20,6 @@ const Login = ({ setShowLogin }) => {
   });
   const [isGoogleSignIn, setIsGoogleSignIn] = useState(false);
   const [loading, setLoading] = useState(false);
-  let name;
 
   const onChangeHandler = (e) => {
     const name = e.target.name;
@@ -36,7 +36,6 @@ const Login = ({ setShowLogin }) => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      name = user.displayName;
       // Send user data to your backend
       await onGoogleSignIn(user);
     } catch (error) {
@@ -120,11 +119,9 @@ const Login = ({ setShowLogin }) => {
                   ? "Welcome Back, Foodie!"
                   : "Join, Foodeli ! "}
               </h2>
-              <img
-                onClick={() => setShowLogin(false)}
-                src={assets.cross_icon}
-                alt=""
-              />
+              <button className="close-btn" onClick={() => setShowLogin(false)}>
+                x
+              </button>
             </div>
 
             <div className="login-inputs">
@@ -137,7 +134,7 @@ const Login = ({ setShowLogin }) => {
                   value={data.name}
                   type="text"
                   placeholder="Your name"
-                  required={!isGoogleSignIn} // Only required if not using Google Sign-In
+                  required={!isGoogleSignIn}
                 />
               )}
               <input
@@ -146,7 +143,7 @@ const Login = ({ setShowLogin }) => {
                 value={data.email}
                 type="email"
                 placeholder="Your email"
-                required={!isGoogleSignIn} // Only required if not using Google Sign-In
+                required={!isGoogleSignIn}
               />
               <input
                 onChange={onChangeHandler}
@@ -154,7 +151,7 @@ const Login = ({ setShowLogin }) => {
                 value={data.password}
                 type="password"
                 placeholder="Password"
-                required={!isGoogleSignIn} // Only required if not using Google Sign-In
+                required={!isGoogleSignIn}
               />
             </div>
             <div className="button-container">
@@ -177,7 +174,11 @@ const Login = ({ setShowLogin }) => {
             </div>
 
             <div className="login-condition">
-              <input type="checkbox" required={!isGoogleSignIn} />
+              <input
+                type="checkbox"
+                required={!isGoogleSignIn}
+                checked={isGoogleSignIn}
+              />
               <p>
                 By continuing, I agree to the terms of use & privacy policy.
               </p>
@@ -228,6 +229,11 @@ const Login = ({ setShowLogin }) => {
       </form>
     </div>
   );
+};
+
+// Add prop validation
+Login.propTypes = {
+  setShowLogin: PropTypes.func.isRequired,
 };
 
 export default Login;

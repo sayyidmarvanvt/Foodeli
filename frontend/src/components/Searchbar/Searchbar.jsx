@@ -1,6 +1,7 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState, useEffect, useRef } from "react";
 import "./Searchbar.scss";
 import { StoreContext } from "../../context/StoreContext";
+import PropTypes from "prop-types";
 
 const SearchBar = ({ onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -28,7 +29,7 @@ const SearchBar = ({ onClose }) => {
     }
   };
 
-  //   // Handle Enter key press to close the search bar
+  // Handle Enter key press to close the search bar
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       onClose();
@@ -38,7 +39,6 @@ const SearchBar = ({ onClose }) => {
   // Handle single-click on a search result
   const handleResultClick = (item) => {
     handleClickedSearchResult(item);
-    //    setSearchQuery(item.name);
     onClose(false); // Set the search query to the clicked item
   };
 
@@ -75,6 +75,11 @@ const SearchBar = ({ onClose }) => {
       )}
     </div>
   );
+};
+
+// Add prop validation
+SearchBar.propTypes = {
+  onClose: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

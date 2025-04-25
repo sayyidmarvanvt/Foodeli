@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import "./FoodDisplay.scss";
 import { StoreContext } from "../../context/StoreContext";
 import FoodItem from "../FoodItem/FoodItem";
+import PropTypes from "prop-types";
 
 const FoodDisplay = ({ category }) => {
   const { foodlist, loading, clickedSearchResult } = useContext(StoreContext);
@@ -19,6 +20,7 @@ const FoodDisplay = ({ category }) => {
       </div>
     );
   }
+
   return (
     <div className="food-display" id="food-display">
       <div className="food-display-list">
@@ -34,10 +36,16 @@ const FoodDisplay = ({ category }) => {
               />
             );
           }
+          return null; // Explicit return for items that don't match the category
         })}
       </div>
     </div>
   );
+};
+
+// Add prop validation for the FoodDisplay component
+FoodDisplay.propTypes = {
+  category: PropTypes.string.isRequired,
 };
 
 export default FoodDisplay;

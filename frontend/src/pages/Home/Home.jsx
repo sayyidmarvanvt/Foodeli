@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./Home.scss";
 import Hero from "../../components/Hero/Hero";
 import Menu from "../../components/Menu/Menu";

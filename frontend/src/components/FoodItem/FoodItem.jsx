@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./FoodItem.scss";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContext";
+import PropTypes from "prop-types";
 
 const FoodItem = ({ id, name, price, image }) => {
   const [active, setActive] = useState(false);
@@ -19,7 +20,7 @@ const FoodItem = ({ id, name, price, image }) => {
       setActive(cartItems[id]);
     }
   }, [clickedSearchResult, cartItems, id]);
-  
+
   return (
     <div className={`food-item ${active ? "active" : ""}`}>
       <img
@@ -55,6 +56,14 @@ const FoodItem = ({ id, name, price, image }) => {
       )}
     </div>
   );
+};
+
+// Add prop validation for the FoodItem component
+FoodItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  image: PropTypes.string.isRequired,
 };
 
 export default FoodItem;

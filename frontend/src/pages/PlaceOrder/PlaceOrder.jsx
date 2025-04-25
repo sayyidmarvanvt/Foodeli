@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./PlaceOrder.scss";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
   const {
@@ -15,7 +16,6 @@ const PlaceOrder = () => {
     promoCode,
   } = useContext(StoreContext);
 
-  
   const navigate = useNavigate();
   const [data, setData] = useState({
     firstName: "",
@@ -41,7 +41,7 @@ const PlaceOrder = () => {
     } else if (getTotalCartAmount() === 0) {
       navigate("/cart");
     }
-  }, [token]);
+  }, [token, getTotalCartAmount, navigate]);
 
   const placeOrder = async (e) => {
     e.preventDefault();
@@ -58,7 +58,7 @@ const PlaceOrder = () => {
       address: data,
       items: orderItems,
       amount: total,
-      promoCode: promoCode, 
+      promoCode: promoCode,
     };
 
     let response = await axios.post(

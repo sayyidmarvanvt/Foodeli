@@ -1,4 +1,3 @@
-import React from "react";
 import "./Services.scss";
 import { assets } from "../../assets/assets";
 

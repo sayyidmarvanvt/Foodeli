@@ -1,7 +1,7 @@
-import React from "react";
 import "./Menu.scss";
 import { menu_list } from "../../assets/assets";
 import FoodDisplay from "../FoodDisplay/FoodDisplay";
+import PropTypes from "prop-types";
 
 const Menu = ({ category, setCategory }) => {
   return (
@@ -29,10 +29,16 @@ const Menu = ({ category, setCategory }) => {
             </div>
           ))}
         </div>
-        <FoodDisplay category={category} setCategory={setCategory} />
+        <FoodDisplay category={category} />
       </div>
     </div>
   );
+};
+
+// Add prop validation
+Menu.propTypes = {
+  category: PropTypes.string.isRequired,
+  setCategory: PropTypes.func.isRequired,
 };
 
 export default Menu;

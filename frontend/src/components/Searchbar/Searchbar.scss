@@ -6,6 +6,7 @@
   .search-bar {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     background-color: white;
     border: black solid 1px;
     padding: 5px;
@@ -18,6 +19,14 @@
       outline: none;
       padding: 5px;
       flex: 1;
+
+      @include tablet {
+        width: 160px;
+      }
+      @include mobile {
+        height: 17px;
+        width: 120px;
+      }
 
       &::placeholder {
         color: rgba(255, 255, 255, 0.7);
@@ -63,16 +72,16 @@
 }
 .search-result-item {
   font-size: 16px;
-    // font-style: italic; /* Italic text */
+  // font-style: italic; /* Italic text */
   margin: 8px 0;
 }
 
-.in-span{
+.in-span {
   font-size: 0.7em;
 }
 
 .category-span {
   font-size: 0.7em; /* Smaller text */
-font-style: italic;
+  font-style: italic;
   color: gray; /* Gray color */
 }

@@ -67,7 +67,14 @@ import Waiters from "./Waiters.png";
 import Orderfood from "./Orderfood.png";
 
 import people from "./Ellipse 9.svg";
+
+import app_download from "./app_download.png"
+import hero_dish from "./hero_dish.png"
+import review from "./review.png"
 export const assets = {
+  app_download,
+  hero_dish,
+  review,
   people,
   logo,
   basket_icon,

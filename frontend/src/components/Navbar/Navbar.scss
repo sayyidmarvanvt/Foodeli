@@ -141,9 +141,7 @@
         display: block;
       }
 
-
-
-      @include desktop {
+      @include desk {
         right: 77px;
       }
       @include tablet {

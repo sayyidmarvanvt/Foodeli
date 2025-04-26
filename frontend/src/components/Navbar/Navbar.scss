@@ -98,7 +98,7 @@
         align-items: center;
         gap: 5px;
         text-decoration: none;
-        color: inherit; 
+        color: inherit;
       }
     }
   }
@@ -107,8 +107,8 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    position: relative; 
-    
+    position: relative;
+
     img {
       width: 22px;
       height: 22px;
@@ -128,8 +128,8 @@
     .search-bar-container {
       border-radius: 20px;
       position: absolute;
-    right: 95px;
-      z-index: 1000; 
+      right: 95px;
+      z-index: 1000;
       background-color: white;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
@@ -139,6 +139,10 @@
 
       &.visible {
         display: block;
+      }
+
+      @include tablet {
+        right: 77px;
       }
       @include mobile {
         right: 50px;

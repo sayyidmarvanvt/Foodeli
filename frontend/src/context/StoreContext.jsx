@@ -102,9 +102,9 @@ const StoreContextProvider = (props) => {
       const storedFoodList = localStorage.getItem("foodlist");
       if (storedFoodList) {
         setFoodList(JSON.parse(storedFoodList)); // Load from localStorage
-        setLoading(false); // If foodlist is in localStorage, no need to fetch
+        setLoading(false); 
       } else {
-        await fetchFoodList(); // Fetch from API if not in localStorage
+        await fetchFoodList(); 
       }
 
       if (localStorage.getItem("token")) {

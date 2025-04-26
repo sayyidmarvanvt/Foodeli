@@ -1,11 +1,11 @@
-import { useContext } from "react";
+import React,{ useContext,Suspense } from "react";
 import "./FoodDisplay.scss";
 import { StoreContext } from "../../context/StoreContext";
-import FoodItem from "../FoodItem/FoodItem";
+const FoodItem = React.lazy(() => import("../FoodItem/FoodItem"));
 import PropTypes from "prop-types";
 
 const FoodDisplay = ({ category }) => {
-  const { foodlist, loading, clickedSearchResult } = useContext(StoreContext);
+  const { foodlist, clickedSearchResult } = useContext(StoreContext);
   const displayedFoodList = clickedSearchResult
     ? [
         clickedSearchResult,
@@ -13,30 +13,24 @@ const FoodDisplay = ({ category }) => {
       ]
     : foodlist;
 
-  if (loading) {
-    return (
-      <div className="loading-indicator">
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
   return (
     <div className="food-display" id="food-display">
       <div className="food-display-list">
         {displayedFoodList.map((item, index) => {
           if (category === "All" || category === item.category) {
             return (
-              <FoodItem
-                key={index}
-                id={item._id}
-                name={item.name}
-                price={item.price}
-                image={item.image}
-              />
+              <Suspense fallback={<div className="spinner"></div>}>
+                <FoodItem
+                  key={index}
+                  id={item._id}
+                  name={item.name}
+                  price={item.price}
+                  image={item.image}
+                />
+              </Suspense>
             );
           }
-          return null; // Explicit return for items that don't match the category
+          return null;
         })}
       </div>
     </div>

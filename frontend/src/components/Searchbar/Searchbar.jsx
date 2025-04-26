@@ -6,10 +6,11 @@ import PropTypes from "prop-types";
 const SearchBar = ({ onClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(-1); // Track highlighted item
+
   const { foodlist, handleClickedSearchResult } = useContext(StoreContext);
   const inputRef = useRef(null);
 
-  // Automatically focus the input field when the search bar is opened
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -17,29 +18,44 @@ const SearchBar = ({ onClose }) => {
   }, []);
 
   const handleSearch = (e) => {
-    setSearchQuery(e.target.value);
-    const results = foodlist
-      .filter((item) =>
-        item.name.toLowerCase().includes(e.target.value.toLowerCase())
-      )
-      .slice(0, 5); // Limit results to 5 items
-    setSearchResults(results);
-    if (e.target.value === "") {
+    const value = e.target.value;
+    setSearchQuery(value);
+
+    if (value === "") {
       setSearchResults([]);
+      setSelectedIndex(-1);
+      return;
     }
+
+    const results = foodlist
+      .filter((item) => item.name.toLowerCase().includes(value.toLowerCase()))
+      .slice(0, 5);
+
+    setSearchResults(results);
+    setSelectedIndex(-1);
   };
 
-  // Handle Enter key press to close the search bar
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      onClose();
+    if (e.key === "ArrowDown") {
+      setSelectedIndex((prev) =>
+        prev < searchResults.length - 1 ? prev + 1 : 0
+      );
+    } else if (e.key === "ArrowUp") {
+      setSelectedIndex((prev) =>
+        prev > 0 ? prev - 1 : searchResults.length - 1
+      );
+    } else if (e.key === "Enter") {
+      if (selectedIndex >= 0 && selectedIndex < searchResults.length) {
+        handleResultClick(searchResults[selectedIndex]);
+      } else {
+        onClose();
+      }
     }
   };
 
-  // Handle single-click on a search result
   const handleResultClick = (item) => {
     handleClickedSearchResult(item);
-    onClose(false); // Set the search query to the clicked item
+    onClose(false);
   };
 
   return (
@@ -62,7 +78,9 @@ const SearchBar = ({ onClose }) => {
           {searchResults.map((result, index) => (
             <div
               key={index}
-              className="search-result-item"
+              className={`search-result-item ${
+                index === selectedIndex ? "highlighted" : ""
+              }`}
               onClick={() => handleResultClick(result)}
             >
               {result.name}
@@ -77,7 +95,6 @@ const SearchBar = ({ onClose }) => {
   );
 };
 
-// Add prop validation
 SearchBar.propTypes = {
   onClose: PropTypes.func.isRequired,
 };

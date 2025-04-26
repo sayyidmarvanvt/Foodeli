@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./FoodItem.scss";
 import { assets } from "../../assets/assets";
 import { StoreContext } from "../../context/StoreContext";
@@ -11,12 +11,10 @@ const FoodItem = ({ id, name, price, image }) => {
     useContext(StoreContext);
 
   useEffect(() => {
-    // Activate the item if it matches the clickedSearchResult
     if (clickedSearchResult && clickedSearchResult._id === id) {
-      setActive(true); // Activate the item
+      setActive(true);
       window.scrollTo({ top: 400, behavior: "smooth" });
     } else {
-      // Otherwise, set active based on cartItems[id]
       setActive(cartItems[id]);
     }
   }, [clickedSearchResult, cartItems, id]);
@@ -25,7 +23,7 @@ const FoodItem = ({ id, name, price, image }) => {
     <div className={`food-item ${active ? "active" : ""}`}>
       <img
         src={image}
-        alt=""
+        alt={name}
         className="food-item-image"
         onClick={() => setActive(!active)}
       />
@@ -58,7 +56,6 @@ const FoodItem = ({ id, name, price, image }) => {
   );
 };
 
-// Add prop validation for the FoodItem component
 FoodItem.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
@@ -66,4 +63,4 @@ FoodItem.propTypes = {
   image: PropTypes.string.isRequired,
 };
 
-export default FoodItem;
+export default React.memo(FoodItem);

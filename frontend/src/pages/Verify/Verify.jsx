@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import axios from "axios";
 
 const Verify = () => {
-  const [searchParams] = useSearchParams(); // Removed unused setSearchParams
+  const [searchParams] = useSearchParams(); 
   const success = searchParams.get("success");
   const orderId = searchParams.get("orderId");
   const navigate = useNavigate();

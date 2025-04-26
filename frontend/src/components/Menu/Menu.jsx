@@ -2,6 +2,7 @@ import "./Menu.scss";
 import { menu_list } from "../../assets/assets";
 import FoodDisplay from "../FoodDisplay/FoodDisplay";
 import PropTypes from "prop-types";
+import MenuListItem from "../MenuListItem/MenuListItem"
 
 const Menu = ({ category, setCategory }) => {
   return (
@@ -13,20 +14,16 @@ const Menu = ({ category, setCategory }) => {
       <div className="menu-list">
         <div className="menu-right">
           {menu_list.map((item, index) => (
-            <div
+            <MenuListItem
+              key={index}
+              item={item}
+              isActive={category === item.menu_name}
               onClick={() =>
                 setCategory((prev) =>
                   prev === item.menu_name ? "All" : item.menu_name
                 )
               }
-              key={index}
-              className={`menu-list-item ${
-                category === item.menu_name ? "active" : ""
-              }`}
-            >
-              <img src={item.menu_image} alt="" />
-              <p>{item.menu_name}</p>
-            </div>
+            />
           ))}
         </div>
         <FoodDisplay category={category} />
@@ -34,6 +31,7 @@ const Menu = ({ category, setCategory }) => {
     </div>
   );
 };
+
 
 // Add prop validation
 Menu.propTypes = {

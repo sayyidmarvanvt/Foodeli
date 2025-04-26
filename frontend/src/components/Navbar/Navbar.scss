@@ -141,6 +141,11 @@
         display: block;
       }
 
+
+
+      @include desktop {
+        right: 77px;
+      }
       @include tablet {
         right: 77px;
       }

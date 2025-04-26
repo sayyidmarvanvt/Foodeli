@@ -107,6 +107,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
+    position: relative
 
     img {
       width: 22px;
@@ -126,8 +127,9 @@
 
     .search-bar-container {
       border-radius: 20px;
-      position: fixed;
-      // top: 22px; /* Position the search bar below the navbar */
+      position: absolute;
+   
+   
       right: 178px;
       z-index: 1000; /* Ensure it appears above other content */
       background-color: white;

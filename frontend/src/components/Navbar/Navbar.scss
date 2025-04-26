@@ -97,8 +97,8 @@
         display: flex;
         align-items: center;
         gap: 5px;
-        text-decoration: none; // Ensure links have no underline
-        color: inherit; // Make sure links inherit the color from the parent li
+        text-decoration: none;
+        color: inherit; 
       }
     }
   }
@@ -107,8 +107,8 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    position: relative
-
+    position: relative; 
+    
     img {
       width: 22px;
       height: 22px;
@@ -128,10 +128,9 @@
     .search-bar-container {
       border-radius: 20px;
       position: absolute;
-   
-   
+
       right: 178px;
-      z-index: 1000; /* Ensure it appears above other content */
+      z-index: 1000; 
       background-color: white;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 

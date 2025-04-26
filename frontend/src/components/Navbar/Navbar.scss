@@ -128,7 +128,7 @@
     .search-bar-container {
       border-radius: 20px;
       position: absolute;
-      right: 95px;
+      right: 77px;
       z-index: 1000;
       background-color: white;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -142,7 +142,7 @@
       }
 
       @include desk {
-        right: 77px;
+        right: 95px;
       }
       @include tablet {
         right: 77px;

@@ -7,7 +7,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from "../../../firebase.js";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import { assets } from "../../assets/assets"; // Added missing import
+import { assets } from "../../assets/assets"; 
 
 const Login = ({ setShowLogin }) => {
   const [currState, setCurrState] = useState("Login");
@@ -167,9 +167,12 @@ const Login = ({ setShowLogin }) => {
                 type="button"
                 onClick={signInWithGoogle}
               >
-                {currState === "Sign Up"
-                  ? "Join with Google"
-                  : "Login with Google"}
+                <img
+                  src={assets.googleLogo}
+                  alt="Google logo"
+                  style={{ width: 20 }}
+                />
+                Continue with Google
               </button>
             </div>
 

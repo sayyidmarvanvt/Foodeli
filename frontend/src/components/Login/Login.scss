@@ -78,11 +78,18 @@
       background-color: #ed0029;
       font-size: 15px;
       cursor: pointer;
+
+      &:hover{
+        background-color: white;
+        outline: 1px solid tomato;
+        color: tomato;
+      }
     }
 
     .google {
-      background-color: #4285f4;
+      background-color: #649bf4;
     }
+
     .login-condition {
       display: flex;
       align-items: start;

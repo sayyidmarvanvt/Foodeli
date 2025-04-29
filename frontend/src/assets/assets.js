@@ -71,7 +71,9 @@ import people from "./Ellipse 9.svg";
 import app_download from "./app_download.png"
 import hero_dish from "./hero_dish.png"
 import review from "./review.png"
+import googleLogo from "./google-logo.png"
 export const assets = {
+  googleLogo,
   app_download,
   hero_dish,
   review,
